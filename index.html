@@ -1,79 +1,222 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>Stage 0 | Topic Proposal</title>
-  </head>
-  <body>
-    <header>
-      <h1>UW Student Productivity Tools</h1>
-    </header>
-    <main>
-      <h2>Topic Description</h2>
-      <p>
-        As a student at UW, I find that there is a clear gap in applications to help
-        with various tasks that students constantly do. Moreover, the ones that do exist
-        tend to not be written with a student first approach, and thus they have poor
-        user experiences and adoption. The problem area is pretty broad, but essentially
-        I want to build a tool to help optimize student life at UW (or potentially more
-        broadly, but I think broadening the scope could take away from the user
-        experience). To make it more concrete, the primary areas of interest to me is
-        building tools that help students succeed in their classes. To do so, I think
-        there are a few more specific areas that can be addressed - the cost of text
-        books (some students just don't buy them putting them at a disadvantage),
-        optimizing course schedules, and forming study groups and other relationships (I
-        think having a solid social life is really important in succeeding
-        academically).
-      </p>
-      <p>
-        I think this area is particularly important to address at UW, because our
-        competitive major system is not very forgiving to students that have a hard time
-        adjusting to college life. For this reason, I think helping students form those
-        initial relationships, develop good strategies for success in class and
-        providing access to the necessary resources to learn is incredibly important and
-        an area for improvement.
-      </p>
+<!--
+   Conner Ardman
+   INFO 340
 
-      <h2>Potential Apps</h2>
-      <ul>
-        <li>
-          <strong>Book Exchange</strong>
-          - Students by textbooks every quarter, just to sell them back to the bookstore
-          for half of the money. The idea is pretty simple, input what books you have and
-          the classes you plan to take. The system would match you with students that have
-          the books you need and need the books you have. Hypothetically, this could mean
-          only ever buying books for one quarter.<br>
-          <a
-            href="https://trends.collegeboard.org/college-pricing/figures-tables/average-estimated-undergraduate-budgets-2017-18">
-            Breakdown of costs of college
-          </a>
-        </li>
-        <li>
-          <strong>Find Nearest Courses</strong>
-          - A lot of students don't go to class because they are too far away (especially
-          in winter quarter). This app would use Google maps and course requirements to
-          find a schedule that optimizes for the least amount of walking. Additionally,
-          this could be helpful for students with mobility related disabilities that have
-          trouble getting to classes on time.<br>
-          <a
-            href="https://webcpm.com/articles/2015/08/06/why-college-students-skip-class.aspx">
-            Students typically cite being too tired as a reason for not going to class.
-            Helping shorten commute to classes (and between them) could help prevent this.
-          </a>
-        </li>
-        <li>
-          <strong>Find Students With Similar Schedules</strong>
-          - The idea here is pretty simple. Students would input what classes they are
-          taking and it could form groups within those classes. I think this could be
-          especially helpful for freshen taking large introductory courses (think CSE 142)
-          to form study groups and create a smaller environment inside those large
-          classes.<br>
-          <a
-            href="https://www.forbes.com/sites/jmaureenhenderson/2014/08/29/why-college-students-should-study-less-and-socialize-more/#22748cdd62ee">
-            Socialization can help lead to academic success
-          </a>
-        </li>
-      </ul>
-    </main>
-  </body>
+   This is the home page for Cook Cheap. It is built with a mobile first design,
+   allowing users to select filters then get an entire weekly meal plan built.
+-->
+<html lang="en">
+   <head>
+      <title>Cook Cheap</title>
+      <meta charset="utf-8">
+      <meta name="author" content="Conner Ardman">
+      <meta name="description" content="Utilize filters to create a cheap weekly meal plan">
+      <meta name="keywords" content="meal, plan, college, cheap, meal planning, recipe">
+      <link rel="stylesheet" href="css/recipeFinder.css">
+      <link rel="shortcut icon" href="img/favicon.png">
+      <script type="text/javascript" src="scripts/recipeFinder.js"></script>
+   </head>
+   <body>
+      <header>
+         <h1>Cook Cheap</h1>
+      </header>
+
+      <main id="application-container">
+         <section id="filters">
+            <h2>Custom Filters</h2>
+            <div>
+               <h3 class="chevron">
+                  Weekly Budget
+               </h3>
+               <div>
+                  <p>$<span id="dollars">100</span></p>
+                  <input type="range" min="1" max="300" value="100" class="slider" id="budget">
+               </div>
+            </div>
+
+            <div>
+               <h3 class="chevron">
+                  Meals Per Week
+               </h3>
+               <div>
+                  <p>
+                     <span id="meals">14</span>
+                     Meal<span id="meal-plural">s</span></p>
+                  <input
+                     type="range"
+                     min="1"
+                     max="21"
+                     value="14"
+                     class="slider"
+                     id="meals-per-week">
+               </div>
+            </div>
+
+            <div>
+               <h3 class="chevron">
+                  Max Cook Time Per Meal
+               </h3>
+               <div>
+                  <div>
+                     <p>
+                        <span id="minutes">15</span>
+                        Minutes</p>
+                     <input type="range" min="5" max="120" value="15" class="slider" id="cook-time">
+                  </div>
+               </div>
+            </div>
+
+            <div>
+               <h3 class="chevron">
+                  Daily Macronutrients
+               </h3>
+               <div>
+                  <h4>
+                     <span id="calories">2000</span>
+                     Calories</h4>
+                  <p>
+                     <span id="carbs">206</span>g Carbohydrates</p>
+                  <input
+                     type="range"
+                     min="25"
+                     max="400"
+                     value="206"
+                     class="slider"
+                     id="carb-input">
+                  <p>
+                     <span id="protein">146</span>g Protein</p>
+                  <input
+                     type="range"
+                     min="25"
+                     max="400"
+                     value="146"
+                     class="slider"
+                     id="protein-input">
+                  <p>
+                     <span id="fat">67</span>g Fat</p>
+                  <input type="range" min="5" max="200" value="67" class="slider" id="fat-input">
+               </div>
+            </div>
+
+            <div>
+               <h3 class="chevron">
+                  Dietary Restrictions
+               </h3>
+               <div>
+                  <div class="check-group">
+                     <input type="checkbox" id="gluten" value="gluten">
+                     <label for="gluten">Gluten Free</label>
+                  </div>
+                  <div class="check-group">
+                     <input type="checkbox" id="lactose" value="lactose">
+                     <label for="lactose">Lactose Intolerant</label>
+                  </div>
+                  <div class="check-group">
+                     <input type="checkbox" id="vegan" value="vegan">
+                     <label for="vegan">Vegan</label>
+                  </div>
+                  <div class="check-group">
+                     <input type="checkbox" id="vegetarian" value="vegetarian">
+                     <label for="vegetarian">Vegetarian</label>
+                  </div>
+               </div>
+            </div>
+            <button type="button" id="generate">Generate Recipes</button>
+         </section>
+
+         <section id="recipes">
+            <h2>Your Custom Meal Plan</h2>
+
+            <div id="plan-container" class="hidden">
+               <div>
+                  <h3>Weekly Breakdown</h3>
+                  <h4>Average Daily Macronutrients</h4>
+                  <ul>
+                     <li>
+                        <strong>Calories:
+                        </strong>2000</li>
+                     <li>
+                        <strong>Protein:
+                        </strong>146g</li>
+                     <li>
+                        <strong>Carbohydrates:
+                        </strong>206g</li>
+                     <li>
+                        <strong>Fat:
+                        </strong>67g</li>
+                  </ul>
+                  <h4>Shopping List ($18)</h4>
+                  <table>
+                     <tr>
+                        <th>Item</th>
+                        <th>Quantity</th>
+                        <th>Estimated Cost</th>
+                     </tr>
+                     <tr>
+                        <td>Ground Beef</td>
+                        <td>1 Pound</td>
+                        <td>$7.00</td>
+                     </tr>
+                     <tr>
+                        <td>Eggs</td>
+                        <td>1 Dozen</td>
+                        <td>$3.00</td>
+                     </tr>
+                     <tr>
+                        <td>Wheat Bread</td>
+                        <td>1 Loaf</td>
+                        <td>$2.50</td>
+                     </tr>
+                     <tr>
+                        <td>Apples</td>
+                        <td>2 Pounds</td>
+                        <td>$5.50</td>
+                     </tr>
+                  </table>
+               </div>
+               <div>
+                  <h3>Not Hot Dog</h3>
+                  <img src="img/hotdog.jpg" alt="hot dog">
+                  <table>
+                     <tr>
+                        <th>Prep Time</th>
+                        <th>Cook Time</th>
+                        <th>Calories</th>
+                     </tr>
+                     <tr>
+                        <td>0-5 Mins</td>
+                        <td>10 Mins</td>
+                        <td>500</td>
+                     </tr>
+                  </table>
+                  <h4>Ingredients</h4>
+                  <ul>
+                     <li>Hot Dog Bun</li>
+                     <li>Beef Hot Dog</li>
+                     <li>Ketchup</li>
+                     <li>Mustard</li>
+                     <li>Cheddar Cheese</li>
+                  </ul>
+                  <h4>Preparation</h4>
+                  <ol>
+                     <li>Warm grill to medium heat</li>
+                     <li>Grill for 6-9 minutes or until reaching desirable temperature</li>
+                     <li>Turn occasionally</li>
+                     <li>Remove hot dog from grill and add condiments</li>
+                  </ol>
+               </div>
+            </div>
+
+            <p id='plan-placeholder'>Meal plan will appear here once it is created!</p>
+         </section>
+      </main>
+
+      <footer>
+         <p>Conner Ardman &copy; 2018 |
+            <a href="mailto:ardmanc@uw.edu">ardmanc@uw.edu</a> |
+            <a href="about.html">About</a>
+         </p>
+      </footer>
+   </body>
 </html>
