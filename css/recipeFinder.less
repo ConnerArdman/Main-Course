@@ -52,6 +52,30 @@ main {
    margin: @component-spacing;
 }
 
+footer {
+   background-color: @filter-color;
+   color: @inverted-text-color;
+   height: @header-footer-height;
+   line-height: @header-footer-height;
+   text-align: center;
+   border-top: @section-border;
+   width: 100%;
+
+   p {
+      margin: 0;
+   }
+}
+
+a {
+   text-decoration: none;
+   color: @inverted-text-color;
+
+   &:hover {
+      text-decoration: underline;
+      cursor: pointer;
+   }
+}
+
 #application-container {
    margin: 0;
 
@@ -202,30 +226,6 @@ main {
             border-radius: 15px;
          }
       }
-   }
-}
-
-footer {
-   background-color: @filter-color;
-   color: @inverted-text-color;
-   height: @header-footer-height;
-   line-height: @header-footer-height;
-   text-align: center;
-   border-top: @section-border;
-   width: 100%;
-
-   p {
-      margin: 0;
-   }
-}
-
-a {
-   text-decoration: none;
-   color: @inverted-text-color;
-
-   &:hover {
-      text-decoration: underline;
-      cursor: pointer;
    }
 }
 

@@ -1,3 +1,4 @@
+/* global Map */
 /**
  * Conner Ardman
  * INFO 340
