@@ -42,7 +42,44 @@
          });
       });
 
+      qs('#filters > h2').addEventListener('click', hideFilters)
       getEl('generate').addEventListener('click', showRecipes);
+      window.matchMedia("(min-width: 992px)").addListener(checkShowFilter);
+   }
+
+
+   /**
+    * checkShowFilter - Listens for screen size change and hides/shows filters
+    */
+   function checkShowFilter() {
+      if (window.matchMedia("(min-width: 992px)").matches) {
+         const isHidden = qsa('#filters > div.hidden').length > 0;
+         if (isHidden) {
+            qsa('#filters > div').forEach(div => {
+               div.classList.remove('hidden');
+            });
+            qs('#filters > h2').classList.toggle('rotated');
+         }
+      }
+   }
+
+
+   /**
+    * hideFilters - Hides the filters panel for small screens
+    */
+   function hideFilters() {
+      // Do nothing for large screens
+      if (!window.matchMedia("(min-width: 992px)").matches) {
+         this.classList.toggle('rotated');
+         const isHidden = qsa('#filters > div.hidden').length > 0;
+         qsa('#filters > div').forEach(div => {
+            if (isHidden) {
+               div.classList.remove('hidden');
+            } else {
+               div.classList.add('hidden');
+            }
+         });
+      }
    }
 
    /**
@@ -60,7 +97,7 @@
     * @param  {String} slider ID of the slider
     * @param  {String} output ID of the output container of the slider value
     * @param  {String} plural Optional ID of a plural placeholder that will contain
-    * an "s" in the case of output being > 1
+    *                         an "s" in the case of output being > 1
     */
    function inputSetup(slider, output, plural) {
       getEl(slider).addEventListener('input', (e) => {
@@ -79,8 +116,9 @@
    }
 
    /**
-    * Alias functions for document.getElementById and document.querySelectorAll
+    * Alias functions for document.getElementById & querySelector(All)
     */
    const getEl = id => document.getElementById(id);
    const qsa = query => document.querySelectorAll(query);
+   const qs = query => document.querySelector(query);
 }());

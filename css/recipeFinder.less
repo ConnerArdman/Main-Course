@@ -6,12 +6,14 @@
  * This file provides styling information for the Cook Cheap application
  */
 
-
+// Global Variables: Changing these should control the majority of the design of the page
 @filter-color: #7699D4;
 @background-color: #E4DFDA;
 @heading-color: #0e3982;
+@inverted-text-color: white;
 @heading-text-border: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
-@section-border: 2px solid black;
+@section-border-size: 2px;
+@section-border: @section-border-size solid black;
 @component-spacing: 10px;
 @text-padding: 5px;
 @main-height: 85vh;
@@ -21,6 +23,10 @@
 @max-recipe-image-width: 350px;
 @max-recipe-image-height: 450px;
 
+// Calculating how much room is left for header and footer after main and borders
+@total-header-room: (100vh - @main-height) / 2;
+@header-footer-height: ~"calc(@{total-header-room} - @{section-border-size})";
+
 body {
    margin: 0;
    font-family: "Helvetica Neue", Arial, sans-serif;
@@ -29,11 +35,11 @@ body {
 
 header {
    background-color: @heading-color;
-   color: white;
+   color: @inverted-text-color;
    border-bottom: @section-border;
    text-align: center;
-   height: (100vh - @main-height) / 2;
-   line-height: (100vh - @main-height) / 2;
+   height: @header-footer-height;
+   line-height: @header-footer-height;
 
    h1 {
       margin: 0;
@@ -51,9 +57,10 @@ main {
 
    #filters {
       background-color: @filter-color;
-      color: white;
+      color: @inverted-text-color;
       text-align: center;
-      overflow: scroll;
+      overflow: auto;
+      border-right: @section-border;
 
       button {
          margin-top: @component-spacing;
@@ -64,21 +71,14 @@ main {
 
       h2, h3 {
          text-shadow: @heading-text-border;
-      }
 
-      h2 {
-         font-size: 2em;
-         padding-left: @text-padding;
-      }
-
-      h3 {
          &.chevron::after {
             border-style: solid;
             border-width: 0.2em 0.2em 0 0;
             content: '';
             display: inline-block;
             height: 0.45em;
-            left: 0.15em;
+            left: 0.25em;
             position: relative;
             transform: rotate(135deg);
             top: -.15em;
@@ -93,8 +93,17 @@ main {
          }
       }
 
+      h2 {
+         font-size: 2em;
+         padding-left: @text-padding;
+         cursor: pointer;
+      }
+
       > div {
-         border: 1px solid black;
+         border-top: 1px solid black;
+         border-bottom: 1px solid black;
+         border-right: 0;
+         border-left: 0;
          padding-left: @text-padding;
          padding-bottom: @text-padding;
 
@@ -136,7 +145,7 @@ main {
 
    #recipes {
       text-align: center;
-      overflow: scroll;
+      overflow: auto;
 
       #plan-container {
          display: flex;
@@ -148,9 +157,6 @@ main {
             margin-bottom: @component-spacing;
             padding: @component-spacing;
             border-radius: @plan-border-radius;
-         }
-
-         div:nth-of-type(odd) {
             background-color: lightgray;
          }
 
@@ -164,7 +170,12 @@ main {
             margin-top: 0;
          }
 
+         h4 {
+            margin-bottom: 5px;
+         }
+
          ol {
+            margin-top: 0;
             padding-left: 0;
             list-style: none;
             counter-reset: counter;
@@ -196,9 +207,9 @@ main {
 
 footer {
    background-color: @filter-color;
-   color: white;
-   height: (100vh - @main-height) / 2;
-   line-height: (100vh - @main-height) / 2;
+   color: @inverted-text-color;
+   height: @header-footer-height;
+   line-height: @header-footer-height;
    text-align: center;
    border-top: @section-border;
    width: 100%;
@@ -206,12 +217,18 @@ footer {
    p {
       margin: 0;
    }
+}
 
-   a {
-      text-decoration: none;
-      color: white;
+a {
+   text-decoration: none;
+   color: @inverted-text-color;
+
+   &:hover {
+      text-decoration: underline;
+      cursor: pointer;
    }
 }
+
 @media (min-width: 992px) {
    #application-container {
       display: flex;
@@ -220,6 +237,14 @@ footer {
 
       #filters {
          flex: 30%;
+
+         h2 {
+            cursor: auto;
+
+            &.chevron::after {
+               display: none;
+            }
+         }
       }
 
       #recipes {

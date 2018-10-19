@@ -15,16 +15,16 @@
       <meta name="keywords" content="meal, plan, college, cheap, meal planning, recipe">
       <link rel="stylesheet" href="css/recipeFinder.css">
       <link rel="shortcut icon" href="img/favicon.png">
-      <script type="text/javascript" src="scripts/recipeFinder.js"></script>
+      <script src="scripts/recipeFinder.js"></script>
    </head>
    <body>
       <header>
-         <h1>Cook Cheap</h1>
+         <h1><a href="index.html">Cook Cheap</a></h1>
       </header>
 
       <main id="application-container">
          <section id="filters">
-            <h2>Custom Filters</h2>
+            <h2 class="chevron">Custom Filters</h2>
             <div>
                <h3 class="chevron">
                   Weekly Budget
@@ -41,8 +41,8 @@
                </h3>
                <div>
                   <p>
-                     <span id="meals">14</span>
-                     Meal<span id="meal-plural">s</span></p>
+                     <span id="meals">14</span> Meal<span id="meal-plural">s</span>
+                  </p>
                   <input
                      type="range"
                      min="1"
@@ -62,7 +62,12 @@
                      <p>
                         <span id="minutes">15</span>
                         Minutes</p>
-                     <input type="range" min="5" max="120" value="15" class="slider" id="cook-time">
+                     <input type="range"
+                            min="5"
+                            max="120"
+                            value="15"
+                            class="slider"
+                            id="cook-time">
                   </div>
                </div>
             </div>
@@ -73,10 +78,11 @@
                </h3>
                <div>
                   <h4>
-                     <span id="calories">2000</span>
-                     Calories</h4>
+                     <span id="calories">2000</span> Calories
+                  </h4>
                   <p>
-                     <span id="carbs">206</span>g Carbohydrates</p>
+                     <span id="carbs">206</span>g Carbohydrates
+                  </p>
                   <input
                      type="range"
                      min="25"
@@ -85,7 +91,8 @@
                      class="slider"
                      id="carb-input">
                   <p>
-                     <span id="protein">146</span>g Protein</p>
+                     <span id="protein">146</span>g Protein
+                  </p>
                   <input
                      type="range"
                      min="25"
@@ -94,8 +101,14 @@
                      class="slider"
                      id="protein-input">
                   <p>
-                     <span id="fat">67</span>g Fat</p>
-                  <input type="range" min="5" max="200" value="67" class="slider" id="fat-input">
+                     <span id="fat">67</span>g Fat
+                  </p>
+                  <input type="range"
+                         min="5"
+                         max="200"
+                         value="67"
+                         class="slider"
+                         id="fat-input">
                </div>
             </div>
 
@@ -133,19 +146,12 @@
                   <h3>Weekly Breakdown</h3>
                   <h4>Average Daily Macronutrients</h4>
                   <ul>
-                     <li>
-                        <strong>Calories:
-                        </strong>2000</li>
-                     <li>
-                        <strong>Protein:
-                        </strong>146g</li>
-                     <li>
-                        <strong>Carbohydrates:
-                        </strong>206g</li>
-                     <li>
-                        <strong>Fat:
-                        </strong>67g</li>
+                     <li><strong>Calories: </strong>2000</li>
+                     <li><strong>Protein: </strong>146g</li>
+                     <li><strong>Carbohydrates: </strong>206g</li>
+                     <li><strong>Fat: </strong>67g</li>
                   </ul>
+
                   <h4>Shopping List ($18)</h4>
                   <table>
                      <tr>
@@ -175,6 +181,7 @@
                      </tr>
                   </table>
                </div>
+
                <div>
                   <h3>Not Hot Dog</h3>
                   <img src="img/hotdog.jpg" alt="hot dog">
@@ -213,7 +220,8 @@
       </main>
 
       <footer>
-         <p>Conner Ardman &copy; 2018 |
+         <p>
+            Conner Ardman &copy; 2018 |
             <a href="mailto:ardmanc@uw.edu">ardmanc@uw.edu</a> |
             <a href="about.html">About</a>
          </p>
