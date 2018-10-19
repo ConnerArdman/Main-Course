@@ -30,8 +30,15 @@
                   Weekly Budget
                </h3>
                <div>
-                  <p>$<span id="dollars">100</span></p>
-                  <input type="range" min="1" max="300" value="100" class="slider" id="budget">
+                  <label for="budget">$<span id="dollars">100</span></label>
+                  <input
+                     aria-label="weekly budget"
+                     type="range"
+                     min="1"
+                     max="300"
+                     value="100"
+                     class="slider"
+                     id="budget">
                </div>
             </div>
 
@@ -40,10 +47,11 @@
                   Meals Per Week
                </h3>
                <div>
-                  <p>
+                  <label for="meal-plural">
                      <span id="meals">14</span> Meal<span id="meal-plural">s</span>
-                  </p>
+                  </label>
                   <input
+                     aria-label="meals per week"
                      type="range"
                      min="1"
                      max="21"
@@ -59,15 +67,18 @@
                </h3>
                <div>
                   <div>
-                     <p>
+                     <label for="minutes">
                         <span id="minutes">15</span>
-                        Minutes</p>
-                     <input type="range"
-                            min="5"
-                            max="120"
-                            value="15"
-                            class="slider"
-                            id="cook-time">
+                        Minutes
+                     </label>
+                     <input
+                        aria-label="max cook time per meal"
+                        type="range"
+                        min="5"
+                        max="120"
+                        value="15"
+                        class="slider"
+                        id="cook-time">
                   </div>
                </div>
             </div>
@@ -80,35 +91,39 @@
                   <h4>
                      <span id="calories">2000</span> Calories
                   </h4>
-                  <p>
+                  <label for="carb-input">
                      <span id="carbs">206</span>g Carbohydrates
-                  </p>
+                  </label>
                   <input
+                     aria-label="carbohydrates per meal"
                      type="range"
                      min="25"
                      max="400"
                      value="206"
                      class="slider"
                      id="carb-input">
-                  <p>
+                  <label for="protein-input">
                      <span id="protein">146</span>g Protein
-                  </p>
+                  </label>
                   <input
+                     aria-label="protein per meal"
                      type="range"
                      min="25"
                      max="400"
                      value="146"
                      class="slider"
                      id="protein-input">
-                  <p>
+                  <label for="fat-input">
                      <span id="fat">67</span>g Fat
-                  </p>
-                  <input type="range"
-                         min="5"
-                         max="200"
-                         value="67"
-                         class="slider"
-                         id="fat-input">
+                  </label>
+                  <input
+                     aria-label="fat per meal"
+                     type="range"
+                     min="5"
+                     max="200"
+                     value="67"
+                     class="slider"
+                     id="fat-input">
                </div>
             </div>
 

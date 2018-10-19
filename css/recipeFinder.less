@@ -7,9 +7,9 @@
  */
 
 // Global Variables: Changing these should control the majority of the design of the page
-@filter-color: #7699D4;
+@filter-color: #1a3d78;
+@heading-color: @filter-color;
 @background-color: #E4DFDA;
-@heading-color: #0e3982;
 @inverted-text-color: white;
 @heading-text-border: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 @section-border-size: 2px;
@@ -45,6 +45,7 @@ header {
       margin: 0;
       padding-left: @text-padding;
       text-shadow: @heading-text-border;
+      font-size: 2.5em;
    }
 }
 
@@ -53,7 +54,7 @@ main {
 }
 
 footer {
-   background-color: @filter-color;
+   background-color: @heading-color;
    color: @inverted-text-color;
    height: @header-footer-height;
    line-height: @header-footer-height;
