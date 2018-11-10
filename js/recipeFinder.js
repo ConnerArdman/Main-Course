@@ -195,6 +195,7 @@
     *
     * @param  {Object} hit Recipe to add to the DOM
     * @param  {HTMLElement} container HTMLElement to act as parent to new recipe
+    * @param  {HTMLElement} before optional HTML element being replaced
     */
    function addNewRecipe(hit, container, before) {
       const {label, image, ingredientLines, url, source, calories} = hit;
