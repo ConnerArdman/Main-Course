@@ -1,4 +1,4 @@
-/* global Map, Promise */
+/* global Map, Promise, Chart */
 /**
  * Conner Ardman
  * INFO 340
@@ -199,6 +199,9 @@
    function addNewRecipe(hit, container, before) {
       const {label, image, ingredientLines, url, source, calories} = hit;
       const servings = hit.yield;
+      const protein = hit.totalNutrients.PROCNT.quantity;
+      const carbs = hit.totalNutrients.CHOCDF.quantity;
+      const fat = hit.totalNutrients.CHOCDF.quantity;
       const recipe = gen('div');
       recipe.classList.add('recipe');
 
@@ -248,13 +251,43 @@
       link.appendChild(a);
       recipe.appendChild(link);
 
+      const nutr = gen('div');
+
+      const chartDiv = gen('div');
+      chartDiv.classList.add('chart');
+      const canvas = gen('canvas');
+      const data = {
+         datasets: [{
+            data: [Math.round(protein * MACROS.get('protein')),
+                   Math.round(carbs * MACROS.get('carbs')),
+                   Math.round(fat * MACROS.get('fat'))],
+            backgroundColor: ['red', 'green', 'blue']
+         }],
+         labels: [
+            'Protein Cals',
+            'Carbs Cals',
+            'Fat Cals'
+         ]
+      };
+      const options = Chart.defaults.pie;
+      options.responsive = true;
+      options.maintainAspectRatio = false;
+      new Chart(canvas,{
+       type: 'pie',
+       data: data,
+       options: options
+      });
+      chartDiv.appendChild(canvas);
+      nutr.appendChild(chartDiv);
+
       const nutrList = gen('ul');
       nutrList.appendChild(genNutritionLabel('Servings', servings));
       nutrList.appendChild(genNutritionLabel('Calories', calories));
-      nutrList.appendChild(genNutritionLabel('Fat', hit.totalNutrients.FAT.quantity));
-      nutrList.appendChild(genNutritionLabel('Carbohydrates', hit.totalNutrients.CHOCDF.quantity));
-      nutrList.appendChild(genNutritionLabel('Protein', hit.totalNutrients.PROCNT.quantity));
-      recipe.appendChild(nutrList);
+      nutrList.appendChild(genNutritionLabel('Fat', fat));
+      nutrList.appendChild(genNutritionLabel('Carbohydrates', carbs));
+      nutrList.appendChild(genNutritionLabel('Protein', protein));
+      nutr.appendChild(nutrList);
+      recipe.appendChild(nutr);
 
       const ingredientsList = gen('ul');
       ingredientLines.forEach(ingredient => {

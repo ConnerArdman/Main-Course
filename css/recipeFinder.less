@@ -3,7 +3,7 @@
 /**
  * Conner Ardman
  * INFO 340
- * This file provides styling information for the Cook Cheap application
+ * This file provides styling information for the Cook Healthy application
  */
 
 // Global Variables: Changing these should control the majority of the design of the page
@@ -24,6 +24,7 @@
 @plan-border-radius: 15px;
 @max-recipe-image-width: 350px;
 @max-recipe-image-height: 450px;
+@chart-size: 200px;
 
 @slider-width: 100%;
 @slider-margin: 20px 0;
@@ -181,6 +182,14 @@ a:hover {
          margin: auto;
 
          div {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+         }
+
+         >div {
+            display: block;
             margin-bottom: @component-spacing;
             padding: @component-spacing;
             border-radius: @plan-border-radius;
@@ -283,28 +292,11 @@ a:hover {
    transform: rotate(45deg);
 }
 
-@media (min-width: 992px) {
-   #application-container {
-      display: flex;
-      flex-direction: row;
-      height: @main-height;
-
-      #filters {
-         flex: 30%;
-
-         h2 {
-            cursor: auto;
-
-            &.chevron::after {
-               display: none;
-            }
-         }
-      }
-
-      #recipes {
-         flex: 70%;
-      }
-   }
+.chart {
+   width: @chart-size;
+   height: @chart-size;
+   margin-left: 0;
+   margin-right: 0;
 }
 
 .hidden {
@@ -397,5 +389,33 @@ input[type=range] {
     &::-ms-fill-upper {
      background: @slider-color-light;
     }
+  }
 }
+
+@media (min-width: 992px) {
+   #application-container {
+      display: flex;
+      flex-direction: row;
+      height: @main-height;
+
+      #filters {
+         flex: 30%;
+
+         h2 {
+            cursor: auto;
+
+            &.chevron::after {
+               display: none;
+            }
+         }
+      }
+
+      #recipes {
+         flex: 70%;
+
+         #plan-container div {
+            flex-direction: row;
+         }
+      }
+   }
 }
