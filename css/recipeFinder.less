@@ -7,9 +7,11 @@
  */
 
 // Global Variables: Changing these should control the majority of the design of the page
-@filter-color: #1a3d78;
-@heading-color: @filter-color;
-@background-color: #E4DFDA;
+@footer-color: linear-gradient(#1a3d78, #122b55);
+@filter-color: linear-gradient(#225d6b, #1a3d78);
+@heading-color: linear-gradient(#348091, #225d6b);
+@background-color: radial-gradient(#f0e0b7, #f0c44e);
+@recipe-color: radial-gradient(#d1c7c7, #918787);
 @inverted-text-color: white;
 @heading-text-border: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 @section-border-size: 2px;
@@ -17,11 +19,24 @@
 @component-spacing: 10px;
 @text-padding: 5px;
 @main-height: 85vh;
-@slider-width: 100%;
+@slider-radius: 40px;
 @filter-width: 90%;
 @plan-border-radius: 15px;
 @max-recipe-image-width: 350px;
 @max-recipe-image-height: 450px;
+
+@slider-width: 100%;
+@slider-margin: 20px 0;
+@slider-height: 10px;
+@slider-shadow: 1px 1px 1px black;
+@slider-thumb-radius: 10px;
+@slider-thumb-border: 1px solid #000000;
+@slider-thumb-color: white;
+@slider-thumb-height: 36px;
+@slider-thumb-top-margin: -14px;
+@slider-thumb-width: 16px;
+@slider-color-light: #367ebd;
+@slider-color-dark: #3071a9;
 
 // Calculating how much room is left for header and footer after main and borders
 @total-header-room: (100vh - @main-height) / 2;
@@ -30,11 +45,14 @@
 body {
    margin: 0;
    font-family: "Helvetica Neue", Arial, sans-serif;
-   background-color: @background-color;
+   background: @background-color;
+   background-repeat: no-repeat;
+   font-size: 16px; /* Base font size */
 }
 
 header {
-   background-color: @heading-color;
+   background: @heading-color;
+   background-repeat: no-repeat;
    color: @inverted-text-color;
    border-bottom: @section-border;
    text-align: center;
@@ -54,7 +72,8 @@ main {
 }
 
 footer {
-   background-color: @heading-color;
+   background: @footer-color;
+   background-repeat: no-repeat;
    color: @inverted-text-color;
    height: @header-footer-height;
    line-height: @header-footer-height;
@@ -67,9 +86,14 @@ footer {
    }
 }
 
+footer, header {
+   a {
+      color: @inverted-text-color;
+   }
+}
+
 a {
    text-decoration: none;
-   color: @inverted-text-color;
 
    &:hover {
       text-decoration: underline;
@@ -81,7 +105,8 @@ a {
    margin: 0;
 
    #filters {
-      background-color: @filter-color;
+      background: @filter-color;
+      background-repeat: no-repeat;
       color: @inverted-text-color;
       text-align: center;
       overflow: auto;
@@ -96,26 +121,6 @@ a {
 
       h2, h3 {
          text-shadow: @heading-text-border;
-
-         &.chevron::after {
-            border-style: solid;
-            border-width: 0.2em 0.2em 0 0;
-            content: '';
-            display: inline-block;
-            height: 0.45em;
-            left: 0.25em;
-            position: relative;
-            transform: rotate(135deg);
-            top: -.15em;
-            vertical-align: middle;
-            width: 0.45em;
-            color: black;
-         }
-
-         &.chevron.rotated::after {
-            top: 0;
-            transform: rotate(45deg);
-         }
       }
 
       h2 {
@@ -150,10 +155,6 @@ a {
             margin: 0;
          }
 
-         .slider {
-            width: @slider-width;
-         }
-
          .check-group {
             text-align: left;
          }
@@ -182,11 +183,15 @@ a {
             margin-bottom: @component-spacing;
             padding: @component-spacing;
             border-radius: @plan-border-radius;
-            background-color: lightgray;
+            background: @recipe-color;
+            background-repeat: no-repeat;
          }
 
          h3 {
             margin-top: 0;
+            padding-left: @component-spacing;
+            padding-right: @component-spacing;
+            cursor: pointer;
          }
 
          ul {
@@ -226,8 +231,56 @@ a {
             max-height: @max-recipe-image-height;
             border-radius: 15px;
          }
+
+         .recipe {
+            position: relative;
+            transition: 1s;
+            opacity: 0;
+
+            &.loaded {
+               opacity: 1;
+
+               &.deleted {
+                  opacity: 0;
+               }
+            }
+
+            .del {
+               position: absolute;
+               top: 0;
+               right: 0;
+               cursor: pointer;
+               transition: .5s;
+               background-color: transparent;
+               background: none;
+
+               &:hover {
+                  transform: scale(1.5);
+               }
+            }
+         }
       }
    }
+}
+
+.chevron::after {
+   border-style: solid;
+   border-width: 0.2em 0.2em 0 0;
+   content: '';
+   display: inline-block;
+   height: 0.45em;
+   left: 0.25em;
+   position: relative;
+   transform: rotate(135deg);
+   top: -.15em;
+   vertical-align: middle;
+   width: 0.45em;
+   color: black;
+}
+
+.chevron.rotated::after {
+   top: 0;
+   transform: rotate(45deg);
 }
 
 @media (min-width: 992px) {
@@ -256,4 +309,93 @@ a {
 
 .hidden {
    display: none !important;
+}
+
+/**
+ * RANGE INPUTS - Inspiration / Adaptation from this tutorial:
+ * https://css-tricks.com/styling-cross-browser-compatible-range-inputs-css/
+ */
+input[type=range] {
+  -webkit-appearance: none;
+  margin: @slider-margin;
+  width: @slider-width;
+  cursor: pointer;
+
+  &:focus {
+     outline: none;
+
+     &::-webkit-slider-runnable-track {
+       background: @slider-color-light;
+     }
+
+     &::-ms-fill-lower {
+       background: @slider-color-dark;
+     }
+
+     &::-ms-fill-upper {
+       background: @slider-color-light;
+     }
+ }
+
+ &::-webkit-slider-runnable-track {
+   height: @slider-height;
+   box-shadow: @slider-shadow;
+   background: @slider-color-dark;
+ }
+
+ &::-webkit-slider-thumb {
+   box-shadow: @slider-shadow;
+   border: @slider-thumb-border;
+   height: @slider-thumb-height;
+   width: @slider-thumb-width;
+   border-radius: @slider-thumb-radius;
+   background: @slider-thumb-color;
+   -webkit-appearance: none;
+   margin-top: @slider-thumb-top-margin;
+ }
+
+ &::-moz-range-track {
+   width: @slider-width;
+   height: @slider-height;
+   box-shadow: @slider-shadow;
+   background: @slider-color-dark;
+ }
+
+ &::-moz-range-thumb {
+   box-shadow: @slider-shadow;
+   border: @slider-thumb-border;
+   height: @slider-thumb-height;
+   width: @slider-thumb-width;
+   border-radius: @slider-thumb-radius;
+   background: @slider-thumb-color;
+ }
+
+ &::-ms-track {
+   width: @slider-width;
+   height: @slider-height;
+   background: transparent;
+   border-color: transparent;
+   border-width: @slider-thumb-width 0;
+   color: transparent;
+ }
+
+ &::-ms-fill-lower {
+   border-radius: @slider-radius;
+   box-shadow: @slider-shadow;
+ }
+
+ &::-ms-fill-upper {
+   background: @slider-color-dark;
+   border-radius: @slider-radius;
+   box-shadow: @slider-shadow;
+ }
+
+ &::-ms-thumb {
+   box-shadow: @slider-shadow;
+   border: @slider-thumb-border;
+   height: @slider-thumb-height;
+   width: @slider-thumb-width;
+   border-radius: @slider-thumb-radius;
+   background: @slider-thumb-color;
+ }
 }

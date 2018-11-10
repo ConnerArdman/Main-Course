@@ -8,18 +8,19 @@
 -->
 <html lang="en">
    <head>
-      <title>Cook Cheap</title>
+      <title>Cook Healthy</title>
       <meta charset="utf-8">
       <meta name="author" content="Conner Ardman">
       <meta name="description" content="Utilize filters to create a cheap weekly meal plan">
       <meta name="keywords" content="meal, plan, college, cheap, meal planning, recipe">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
       <link rel="stylesheet" href="css/recipeFinder.css">
       <link rel="shortcut icon" href="img/favicon.png">
       <script src="js/recipeFinder.js"></script>
    </head>
    <body>
       <header>
-         <h1><a href="index.html">Cook Cheap</a></h1>
+         <h1><a href="index.html">Cook Healthy</a></h1>
       </header>
 
       <main id="application-container">
@@ -27,37 +28,20 @@
             <h2 class="chevron">Custom Filters</h2>
             <div>
                <h3 class="chevron">
-                  Weekly Budget
+                  Meals Per Day
                </h3>
                <div>
-                  <label for="budget">$<span id="dollars">100</span></label>
-                  <input
-                     aria-label="weekly budget"
-                     type="range"
-                     min="1"
-                     max="300"
-                     value="100"
-                     class="slider"
-                     id="budget">
-               </div>
-            </div>
-
-            <div>
-               <h3 class="chevron">
-                  Meals Per Week
-               </h3>
-               <div>
-                  <label for="meals-per-week">
-                     <span id="meals">14</span> Meal<span id="meal-plural">s</span>
+                  <label for="meals-per-day">
+                     <span id="meals">3</span> Meal<span id="meal-plural">s</span>
                   </label>
                   <input
-                     aria-label="meals per week"
+                     aria-label="meals per day"
                      type="range"
                      min="1"
-                     max="21"
-                     value="14"
+                     max="7"
+                     value="3"
                      class="slider"
-                     id="meals-per-week">
+                     id="meals-per-day">
                </div>
             </div>
 
@@ -133,14 +117,6 @@
                </h3>
                <div>
                   <div class="check-group">
-                     <input type="checkbox" id="gluten" value="gluten">
-                     <label for="gluten">Gluten Free</label>
-                  </div>
-                  <div class="check-group">
-                     <input type="checkbox" id="lactose" value="lactose">
-                     <label for="lactose">Lactose Intolerant</label>
-                  </div>
-                  <div class="check-group">
                      <input type="checkbox" id="vegan" value="vegan">
                      <label for="vegan">Vegan</label>
                   </div>
@@ -155,90 +131,16 @@
 
          <section id="recipes">
             <h2>Your Custom Meal Plan</h2>
-
-            <div id="plan-container" class="hidden">
-               <div>
-                  <h3>Weekly Breakdown</h3>
-                  <h4>Average Daily Macronutrients</h4>
-                  <ul>
-                     <li><strong>Calories: </strong>2000</li>
-                     <li><strong>Protein: </strong>146g</li>
-                     <li><strong>Carbohydrates: </strong>206g</li>
-                     <li><strong>Fat: </strong>67g</li>
-                  </ul>
-
-                  <h4>Shopping List ($18)</h4>
-                  <table>
-                     <tr>
-                        <th>Item</th>
-                        <th>Quantity</th>
-                        <th>Estimated Cost</th>
-                     </tr>
-                     <tr>
-                        <td>Ground Beef</td>
-                        <td>1 Pound</td>
-                        <td>$7.00</td>
-                     </tr>
-                     <tr>
-                        <td>Eggs</td>
-                        <td>1 Dozen</td>
-                        <td>$3.00</td>
-                     </tr>
-                     <tr>
-                        <td>Wheat Bread</td>
-                        <td>1 Loaf</td>
-                        <td>$2.50</td>
-                     </tr>
-                     <tr>
-                        <td>Apples</td>
-                        <td>2 Pounds</td>
-                        <td>$5.50</td>
-                     </tr>
-                  </table>
-               </div>
-
-               <div>
-                  <h3>Not Hot Dog</h3>
-                  <img src="img/hotdog.jpg" alt="hot dog">
-                  <table>
-                     <tr>
-                        <th>Prep Time</th>
-                        <th>Cook Time</th>
-                        <th>Calories</th>
-                     </tr>
-                     <tr>
-                        <td>0-5 Mins</td>
-                        <td>10 Mins</td>
-                        <td>500</td>
-                     </tr>
-                  </table>
-                  <h4>Ingredients</h4>
-                  <ul>
-                     <li>Hot Dog Bun</li>
-                     <li>Beef Hot Dog</li>
-                     <li>Ketchup</li>
-                     <li>Mustard</li>
-                     <li>Cheddar Cheese</li>
-                  </ul>
-                  <h4>Preparation</h4>
-                  <ol>
-                     <li>Warm grill to medium heat</li>
-                     <li>Grill for 6-9 minutes or until reaching desirable temperature</li>
-                     <li>Turn occasionally</li>
-                     <li>Remove hot dog from grill and add condiments</li>
-                  </ol>
-               </div>
-            </div>
-
+            <div id="plan-container" class="hidden"></div>
             <p id="plan-placeholder">Meal plan will appear here once it is created!</p>
          </section>
       </main>
 
       <footer>
          <p>
-            Conner Ardman &copy; 2018 |
-            <a href="mailto:ardmanc@uw.edu">ardmanc@uw.edu</a> |
-            <a href="about.html">About</a>
+            <a href="mailto:ardmanc@uw.edu">Conner Ardman</a> &copy; 2018 |
+            <a href="about.html">About</a> |
+            Data From <a href="https://www.edamam.com">api.edamam.com</a>
          </p>
       </footer>
    </body>
