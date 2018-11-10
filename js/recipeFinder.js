@@ -1,14 +1,10 @@
-/* global Map */
+/* global Map, Promise */
 /**
  * Conner Ardman
  * INFO 340
  * This file fetches recipe information and displays daily meal plans based
  * on the filters of a user.
  */
-
-// TODO check that cors isn't causing issues anymore
-// TODO JS Framework of some kind?
-// TODO pie chart of nutrients breakdown?
 
 /**
  * Using the module pattern to encapsulate code and "use strict" for better

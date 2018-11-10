@@ -86,19 +86,20 @@ footer {
    }
 }
 
+a {
+   text-decoration: none;
+}
+
 footer, header {
    a {
       color: @inverted-text-color;
    }
 }
 
-a {
-   text-decoration: none;
-
-   &:hover {
-      text-decoration: underline;
-      cursor: pointer;
-   }
+// This should be with the other a, but needs to be here to validate...
+a:hover {
+   text-decoration: underline;
+   cursor: pointer;
 }
 
 #application-container {
@@ -251,7 +252,6 @@ a {
                right: 0;
                cursor: pointer;
                transition: .5s;
-               background-color: transparent;
                background: none;
 
                &:hover {
@@ -321,22 +321,6 @@ input[type=range] {
   width: @slider-width;
   cursor: pointer;
 
-  &:focus {
-     outline: none;
-
-     &::-webkit-slider-runnable-track {
-       background: @slider-color-light;
-     }
-
-     &::-ms-fill-lower {
-       background: @slider-color-dark;
-     }
-
-     &::-ms-fill-upper {
-       background: @slider-color-light;
-     }
- }
-
  &::-webkit-slider-runnable-track {
    height: @slider-height;
    box-shadow: @slider-shadow;
@@ -398,4 +382,20 @@ input[type=range] {
    border-radius: @slider-thumb-radius;
    background: @slider-thumb-color;
  }
+
+ &:focus {
+    outline: none;
+
+    &::-webkit-slider-runnable-track {
+     background: @slider-color-light;
+    }
+
+    &::-ms-fill-lower {
+     background: @slider-color-dark;
+    }
+
+    &::-ms-fill-upper {
+     background: @slider-color-light;
+    }
+}
 }
