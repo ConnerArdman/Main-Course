@@ -156,37 +156,22 @@
       container.innerHTML = "";
       let shoppingCart = [];
 
-      for (let i = 0; i < hits.length; i++) {
-         if (i >= numMeals) {
-            break;
-         }
+      // Create a recipe for each hit until reaching numMeals or the end of hits
+      for (let i = 0; i < hits.length && i < numMeals; i++) {
          const hit = hits[i].recipe;
          shoppingCart = [...shoppingCart, ...hit.ingredientLines];
          addNewRecipe(hit, container);
       }
       extraRecipes = hits.splice(numMeals);
-
       const div = gen('div');
-      const title = gen('h3');
-      title.textContent = "Shopping List";
-      title.classList.add('chevron');
       div.classList.add('recipe');
       // Add to the end of execution queue
       setTimeout(() => {
          div.classList.add('loaded');
       }, 0);
-      div.appendChild(title);
-      title.addEventListener('click', () => {
-         title.classList.toggle('rotated');
-         div.querySelector('ul').classList.toggle('hidden');
-      });
-      const masterIngredients = gen('ul');
-      shoppingCart.forEach(ingredient => {
-         const li = gen('li');
-         li.textContent = ingredient;
-         masterIngredients.appendChild(li);
-      });
-      div.appendChild(masterIngredients);
+
+      div.appendChild(genShoppingCartTitle(div));
+      div.appendChild(genIngredientsList(shoppingCart));
       container.prepend(div);
    }
 
@@ -198,65 +183,136 @@
     * @param  {HTMLElement} before optional HTML element being replaced
     */
    function addNewRecipe(hit, container, before) {
-      const {label, image, ingredientLines, url, source, calories} = hit;
-      const servings = hit.yield;
-      const protein = hit.totalNutrients.PROCNT.quantity;
-      const carbs = hit.totalNutrients.CHOCDF.quantity;
-      const fat = hit.totalNutrients.CHOCDF.quantity;
+      const {label, image, ingredientLines, url, source} = hit;
       const recipe = gen('div');
       recipe.classList.add('recipe');
-
       // Wait till the end of the execution queue
       setTimeout(() => {
          recipe.classList.add('loaded');
       }, 0);
 
-      const del = gen('div');
-      del.textContent = 'X';
-      del.classList.add('del');
-      del.addEventListener('click', (e) => {
-         e.target.parentNode.classList.add('deleted');
-         setTimeout(()=> {
-            if (extraRecipes.length > 0) {
-               addNewRecipe(extraRecipes.pop().recipe, container, e.target.parentNode);
-            }
-            e.target.parentNode.parentNode.removeChild(e.target.parentNode);
-         }, 1000);
-      });
-      recipe.appendChild(del);
-
-      const title = gen('h3');
-      title.textContent = label;
-      title.classList.add('chevron');
-      recipe.appendChild(title);
-      // Add toggle functionality
-      title.addEventListener('click', () => {
-         title.classList.toggle('rotated');
-         Array.from(recipe.children).forEach(child => {
-            if (child !== title && child.textContent !== 'X') {
-               child.classList.toggle('hidden');
-            }
-         });
-      });
-
       const img = gen('img');
       img.src = image;
       img.alt = label;
-      recipe.appendChild(img);
 
+      // Append everything to the page
+      recipe.appendChild(genDel(container));
+      recipe.appendChild(genTitle(label, recipe));
+      recipe.appendChild(img);
+      recipe.appendChild(genLinkInstructions(url, source));
+      recipe.appendChild(genNutrition(protein, carbs, fat, hit));
+      recipe.appendChild(genIngredientsList(ingredientLines));
+
+      if (before != null) {
+         container.insertBefore(recipe, before);
+      } else {
+         container.appendChild(recipe);
+      }
+   }
+
+   /**
+    * genNutrition - Generates the entire nutrition section
+    *
+    * @param  {number} protein in grams
+    * @param  {number} carbs in grams
+    * @param  {number} fat in grams
+    * @param  {object} hit recipe object
+    * @return {HTMLElement} div containing chart and nutrition lable
+    */
+   function genNutrition(protein, carbs, fat, hit) {
+      const canvas = gen('canavs');
+      const nutr = gen('div');
+      const chartDiv = gen('div');
+      chartDiv.classList.add('chart');
+      genChart(canvas, protein, carbs, fat);
+      chartDiv.appendChild(canvas);
+      nutr.appendChild(chartDiv);
+      nutr.appendChild(genNutritionList(hit));
+      return nutr;
+   }
+
+   /**
+    * genShoppingCartTitle - Generates a title of Shopping List that is clickable
+    * to hide/show the div
+    *
+    * @param  {HTMLElement} div to hide/show on click
+    * @return {HTMLElement}  h3 elemnt with the title
+    */
+   function genShoppingCartTitle(div) {
+      const title = gen('h3');
+      title.textContent = "Shopping List";
+      title.classList.add('chevron');
+      title.addEventListener('click', () => {
+         title.classList.toggle('rotated');
+         div.querySelector('ul').classList.toggle('hidden');
+      });
+
+      return title;
+   }
+
+   /**
+    * genLinkInstructions - Generates a link to the original recipe
+    *
+    * @param  {String} url link to the recipe
+    * @param  {String} source Name of original author
+    * @return {HTMLElement} p element containing link as a element
+    */
+   function genLinkInstructions(url, source) {
       const link = gen('p');
       const a = gen('a');
       a.href = url;
       a.textContent = 'Full Recipe From ' + source;
       a.target = '_blank';
       link.appendChild(a);
-      recipe.appendChild(link);
+      return link;
+   }
 
-      const nutr = gen('div');
+   /**
+    * genIngredientsList - Generates a list of ingredients as ul
+    *
+    * @param  {String[]} Array of ingredients
+    * @return {HTMLElement} List of ingredients (ul)
+    */
+   function genIngredientsList(ingredientLines) {
+      const ingredientsList = gen('ul');
+      ingredientLines.forEach(ingredient => {
+         const li = gen('li');
+         li.textContent = ingredient;
+         ingredientsList.appendChild(li);
+      });
+      return ingredientsList;
+   }
 
-      const chartDiv = gen('div');
-      chartDiv.classList.add('chart');
-      const canvas = gen('canvas');
+   /**
+    * genNutritionList - Generates nutrition labels as a ul element
+    *
+    * @param  {Object} object representing the recipe
+    * @return {HTMLElement} ul element containing list
+    */
+   function genNutritionList(hit) {
+      const {calories} = hit;
+      const servings = hit.yield;
+      const protein = hit.totalNutrients.PROCNT.quantity;
+      const carbs = hit.totalNutrients.CHOCDF.quantity;
+      const fat = hit.totalNutrients.CHOCDF.quantity;
+      const nutrList = gen('ul');
+      nutrList.appendChild(genNutritionLabel('Servings', servings));
+      nutrList.appendChild(genNutritionLabel('Calories', calories));
+      nutrList.appendChild(genNutritionLabel('Fat', fat));
+      nutrList.appendChild(genNutritionLabel('Carbohydrates', carbs));
+      nutrList.appendChild(genNutritionLabel('Protein', protein));
+      return nutrList;
+   }
+
+   /**
+    * genChart - Generates a pie chart of protein, carbs and fat
+    *
+    * @param  {HTMLElement} canvas Container of chart
+    * @param  {number} protein in grams
+    * @param  {number} carbs in grams
+    * @param  {number} fat in grams
+    */
+   function genChart(canvas, protein, carbs, fat) {
       const data = {
          datasets: [{
             data: [Math.round(protein * MACROS.get('protein')),
@@ -278,31 +334,50 @@
        data: data,
        options: options
       });
-      chartDiv.appendChild(canvas);
-      nutr.appendChild(chartDiv);
+   }
 
-      const nutrList = gen('ul');
-      nutrList.appendChild(genNutritionLabel('Servings', servings));
-      nutrList.appendChild(genNutritionLabel('Calories', calories));
-      nutrList.appendChild(genNutritionLabel('Fat', fat));
-      nutrList.appendChild(genNutritionLabel('Carbohydrates', carbs));
-      nutrList.appendChild(genNutritionLabel('Protein', protein));
-      nutr.appendChild(nutrList);
-      recipe.appendChild(nutr);
-
-      const ingredientsList = gen('ul');
-      ingredientLines.forEach(ingredient => {
-         const li = gen('li');
-         li.textContent = ingredient;
-         ingredientsList.appendChild(li);
+   /**
+    * genTitle - Generates a recipe title HTML Element
+    *
+    * @param  {String} label  Title of recipe
+    * @param  {HTMLElement} recipe Container div of recipe
+    * @return {HTMLElement} Title h3 element
+    */
+   function genTitle(label, recipe) {
+      const title = gen('h3');
+      title.textContent = label;
+      title.classList.add('chevron');
+      // Add toggle functionality
+      title.addEventListener('click', () => {
+         title.classList.toggle('rotated');
+         Array.from(recipe.children).forEach(child => {
+            if (child !== title && child.textContent !== 'X') {
+               child.classList.toggle('hidden');
+            }
+         });
       });
-      recipe.appendChild(ingredientsList);
+      return title;
+   }
 
-      if (before != null) {
-         container.insertBefore(recipe, before);
-      } else {
-         container.appendChild(recipe);
-      }
+   /**
+    * genDel - Creates a delete button
+    *
+    * @return {HTMLElement}  Delete button as div
+    */
+   function genDel(container) {
+      const del = gen('div');
+      del.textContent = 'X';
+      del.classList.add('del');
+      del.addEventListener('click', (e) => {
+         e.target.parentNode.classList.add('deleted');
+         setTimeout(()=> {
+            if (extraRecipes.length > 0) {
+               addNewRecipe(extraRecipes.pop().recipe, container, e.target.parentNode);
+            }
+            e.target.parentNode.parentNode.removeChild(e.target.parentNode);
+         }, 1000);
+      });
+      return del;
    }
 
    /**
