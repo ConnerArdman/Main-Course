@@ -25,6 +25,8 @@
 @max-recipe-image-width: 350px;
 @max-recipe-image-height: 450px;
 @chart-size: 200px;
+@del-size: 20px;
+@del-border: 2px solid black;
 
 @slider-width: 100%;
 @slider-margin: 20px 0;
@@ -263,6 +265,10 @@ a:hover {
                cursor: pointer;
                transition: .5s;
                background: none;
+               border: @del-border;
+               border-radius: @del-size;
+               width: @del-size;
+               height: @del-size;
 
                &:hover {
                   transform: scale(1.5);

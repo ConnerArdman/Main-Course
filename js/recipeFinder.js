@@ -184,7 +184,11 @@
     */
    function addNewRecipe(hit, container, before) {
       const {label, image, ingredientLines, url, source} = hit;
+      const protein = hit.totalNutrients.PROCNT.quantity;
+      const carbs = hit.totalNutrients.CHOCDF.quantity;
+      const fat = hit.totalNutrients.FAT.quantity;
       const recipe = gen('div');
+      recipe.setAttribute('role', 'article');
       recipe.classList.add('recipe');
       // Wait till the end of the execution queue
       setTimeout(() => {
@@ -220,7 +224,7 @@
     * @return {HTMLElement} div containing chart and nutrition lable
     */
    function genNutrition(protein, carbs, fat, hit) {
-      const canvas = gen('canavs');
+      const canvas = gen('canvas');
       const nutr = gen('div');
       const chartDiv = gen('div');
       chartDiv.classList.add('chart');
@@ -294,7 +298,7 @@
       const servings = hit.yield;
       const protein = hit.totalNutrients.PROCNT.quantity;
       const carbs = hit.totalNutrients.CHOCDF.quantity;
-      const fat = hit.totalNutrients.CHOCDF.quantity;
+      const fat = hit.totalNutrients.FAT.quantity;
       const nutrList = gen('ul');
       nutrList.appendChild(genNutritionLabel('Servings', servings));
       nutrList.appendChild(genNutritionLabel('Calories', calories));
@@ -366,6 +370,7 @@
     */
    function genDel(container) {
       const del = gen('div');
+      del.setAttribute('role', 'button');
       del.textContent = 'X';
       del.classList.add('del');
       del.addEventListener('click', (e) => {
