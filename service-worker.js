@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/stage-0-topic-proposal-ConnerArdman/precache-manifest.35eac14bcaf5a18925524c8d1be52399.js"
+  "/stage-0-topic-proposal-ConnerArdman/precache-manifest.0362c225dc5144f7e45b8eeded291446.js"
 );
 
 workbox.clientsClaim();
