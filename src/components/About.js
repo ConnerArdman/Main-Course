@@ -12,7 +12,7 @@ export class About extends Component {
                     eating out, because I was running out of ideas of what to make. As a result, I
                     was spending more money than I wanted to on food. To solve this problem, I
                     created Cook Healhty, an application to help create a
-                    <strong>cheap daily meal plan</strong>. The idea is pretty simple, you can add
+                    <strong> cheap daily meal plan</strong>. The idea is pretty simple, you can add
                     filters based on nutritional goals, and Cook Healthy will
                     automatically create a customized plan with recipes and a weekly shopping cart
                     to bring to the grocery story.

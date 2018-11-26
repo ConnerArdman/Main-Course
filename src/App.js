@@ -98,7 +98,7 @@ class App extends Component {
 
             <footer className="footer">
                   <p>
-                        <a href="mailto:ardmanc@uw.edu">Conner Ardman</a> &copy; 2018 |&nbsp;
+                        <a href="mailto:ardmanc@uw.edu">Conner Ardman, Ian Wohlers</a> &copy; 2018 |&nbsp;
                         <a href="#" onClick={this.toggleAbout.bind(this)}>
                               {about ? "Home " : "About "}
                         </a>
