@@ -1,0 +1,317 @@
+// out: App.css, sourcemap: false, compress: true
+
+/**
+ * Conner Ardman, Ian Wohlers
+ * INFO 340
+ * This file provides styling information for the Cook Healthy application
+ */
+
+// Global Variables: Changing these should control the majority of the design of the page
+@footer-color: linear-gradient(#1a3d78, #122b55);
+@filter-color: #252525;
+@heading-color: linear-gradient(#348091, #225d6b);
+@background-color: radial-gradient(#f0e0b7, #f0c44e);
+@recipe-color: radial-gradient(#d1c7c7, #918787);
+@inverted-text-color: white;
+@heading-text-border: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+@section-border-size: 2px;
+@section-border: @section-border-size solid black;
+@component-spacing: 10px;
+@text-padding: 5px;
+@main-height: 85vh;
+@slider-radius: 40px;
+@filter-width: 80%;
+@plan-border-radius: 15px;
+@max-recipe-image-width: 250px;
+@max-recipe-image-height: 250px;
+
+@chart-height: 320px;
+@chart-width: 250px;
+
+@chart-size: 200px;
+@del-size: 30px;
+@del-border: 2px solid black;
+
+@slider-width: 80%;
+@slider-margin: 15px 0;
+@slider-height: 5px;
+@slider-shadow: 1px 1px 1px #236089;
+@slider-thumb-radius: 5px;
+@slider-thumb-border: 1px solid #000000;
+@slider-thumb-color: white;
+@slider-thumb-height: 26px;
+@slider-thumb-top-margin: (@slider-thumb-height / -2) + 2;
+@slider-thumb-width: 16px;
+@slider-color-light: #2D7DB3;
+@slider-color-dark: #2D7DB3;
+
+// Calculating how much room is left for header and footer after main and borders
+@total-header-room: (100vh - @main-height) / 2;
+@header-footer-height: ~"calc(@{total-header-room} - @{section-border-size})";
+
+.panel-heading {
+   position: relative;
+}
+
+.recipe {
+   transition: 1s;
+   opacity: 0;
+
+   &.loaded {
+      opacity: 1;
+
+      &.deleted {
+         opacity: 0;
+      }
+   }
+}
+
+.del {
+   position: absolute;
+   top: 5px;
+   right: 0;
+   cursor: pointer;
+   transition: .5s;
+   background: none;
+   border: @del-border;
+   border-radius: @del-size;
+   width: @del-size;
+   height: @del-size;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+
+   &:hover {
+      transform: scale(1.5);
+   }
+}
+
+
+.push {
+  height: 5vh;
+}
+
+header {
+  text-align: center;
+  padding: 0.5%;
+}
+
+footer {
+  color:white;
+  text-align: center;
+  padding: 0.5%;
+
+  width: 100%;
+  height: 5vh;
+  background: #3E4448;
+}
+
+body {
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  background: @background-color;
+  background-repeat: no-repeat;
+  font-size: 16px; /* Base font size */
+  position: relative;
+}
+
+main {
+  margin: @component-spacing;
+}
+
+#loading {
+  margin: 0 auto;
+}
+
+.col-container {
+  display: table;
+  height: 90vh;
+  width: 100%;
+  text-align: center;
+}
+
+.col {
+  display: table-cell;
+}
+
+.col1 {
+  text-align: left;
+  padding: 1%;
+  width: 25%;
+  background: #315553;
+  color: white;
+}
+
+.col2 {
+  padding: 1%;
+  width: 75%;
+  background: white;
+  transition: 2s;
+  text-align: center;
+}
+
+.loading {
+  background:rgb(207, 207, 207);
+  transition: 5s;
+}
+
+.chevron::after {
+   border-style: solid;
+   border-width: 0.2em 0.2em 0 0;
+   content: '';
+   display: inline-block;
+   height: 0.45em;
+   left: 0.25em;
+   position: relative;
+   transform: rotate(135deg);
+   top: -.15em;
+   vertical-align: middle;
+   width: 0.45em;
+   color: black;
+}
+
+.chevron.rotated::after {
+   top: 0;
+   transform: rotate(45deg);
+}
+
+.chart {
+   width: @chart-size;
+   height: @chart-size;
+   margin-left: 0;
+   margin-right: 0;
+}
+
+.hidden {
+   display: none !important;
+}
+
+.pieContainer {
+  margin: 0 auto;
+  height: @chart-height;
+  width: @chart-width;
+}
+
+.control-option {
+  background: red;
+}
+
+#about-page {
+  background: white;
+
+  div {
+    background: white;
+    padding: 1%;
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+
+  div:nth-child(even) {
+    color: white;
+    background: #444444;
+  }
+
+  h1 {
+    font-size: 5rem;
+  }
+  h2 {
+    font-size: 3rem;
+  }
+  p {
+    font-size: 2rem;
+  }
+}
+
+/**
+ * RANGE INPUTS - Inspiration / Adaptation from this tutorial:
+ * https://css-tricks.com/styling-cross-browser-compatible-range-inputs-css/
+ */
+input[type=range] {
+  -webkit-appearance: none;
+  margin: @slider-margin;
+  width: @slider-width;
+  cursor: pointer;
+
+ &::-webkit-slider-runnable-track {
+   height: @slider-height;
+   box-shadow: @slider-shadow;
+   background: @slider-color-dark;
+ }
+
+ &::-webkit-slider-thumb {
+   border: @slider-thumb-border;
+   height: @slider-thumb-height;
+   width: @slider-thumb-width;
+   border-radius: @slider-thumb-radius;
+   background: @slider-thumb-color;
+   -webkit-appearance: none;
+   margin-top: @slider-thumb-top-margin;
+ }
+
+ &::-moz-range-track {
+   width: @slider-width;
+   height: @slider-height;
+   background: @slider-color-dark;
+ }
+
+ &::-moz-range-thumb {
+   box-shadow: @slider-shadow;
+   border: @slider-thumb-border;
+   height: @slider-thumb-height;
+   width: @slider-thumb-width;
+   border-radius: @slider-thumb-radius;
+   background: @slider-thumb-color;
+ }
+
+ &::-ms-track {
+   width: @slider-width;
+   height: @slider-height;
+   background: transparent;
+   border-color: transparent;
+   border-width: @slider-thumb-width 0;
+   color: transparent;
+ }
+
+ &::-ms-fill-lower {
+   border-radius: @slider-radius;
+   box-shadow: @slider-shadow;
+ }
+
+ &::-ms-fill-upper {
+   background: @slider-color-dark;
+   border-radius: @slider-radius;
+   box-shadow: @slider-shadow;
+ }
+
+ &::-ms-thumb {
+   box-shadow: @slider-shadow;
+   border: @slider-thumb-border;
+   height: @slider-thumb-height;
+   width: @slider-thumb-width;
+   border-radius: @slider-thumb-radius;
+   background: @slider-thumb-color;
+ }
+
+ &:focus {
+    outline: none;
+
+    &::-webkit-slider-runnable-track {
+     background: @slider-color-light;
+    }
+
+    &::-ms-fill-lower {
+     background: @slider-color-dark;
+    }
+
+    &::-ms-fill-upper {
+     background: @slider-color-light;
+    }
+  }
+}
+
+@media (max-width: 992px) {
+    .col {
+      border: 10px solid transparent;
+      display: block;
+      width: 100%;
+    }
+}
