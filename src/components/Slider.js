@@ -12,7 +12,7 @@ export class Slider extends Component {
       const {name, id, min, max, defaultValue, aria, inputChange, value} = this.props;
       const {collapsed} = this.state;
       const rotated = collapsed ? " rotated" : "";
-      
+
       return (
          <div>
             {name ?
