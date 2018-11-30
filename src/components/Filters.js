@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Slider } from './Slider';
 import { SliderGroup } from './SliderGroup';
 import { CheckBoxGroup } from './CheckBoxGroup';
-import { MACROS } from '../App';
+import { MACROS } from './RecipeGenerator';
 
 import { Button } from 'react-bootstrap';
 
@@ -50,7 +50,7 @@ export class Filters extends Component {
                   value={cookTime}
                   shouldPlural={true}
                   />
-            
+
             <SliderGroup
                   className="control-option"
                   masterUnits="Calories"
@@ -89,14 +89,14 @@ export class Filters extends Component {
                      }
                   ]}
                />
-            
+
             <CheckBoxGroup
                   className="control-option"
                   checkBoxes={['vegan', 'vegetarian']}
                   title="Dietary Restrictions"
                   change={this.addRestriction.bind(this)}
                   />
-            
+
             <Button
                   bsStyle="primary"
                   bsSize="large"

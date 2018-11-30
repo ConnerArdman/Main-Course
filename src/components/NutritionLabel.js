@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { MACROS } from '../App';
+import { MACROS } from './RecipeGenerator';
 import { Pie } from 'react-chartjs-2';
 
 export class NutritionLabel extends Component {
