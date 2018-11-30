@@ -7,7 +7,7 @@
 */
 
 import React, { Component } from 'react';
-import { Layout, Menu, Icon, Button, Popconfirm, Popover} from 'antd';
+import { Layout, Icon, Button, Popconfirm, Popover} from 'antd';
 import Scheduler from './Scheduler';
 import GroceryList from './GroceryList';
 import 'antd/dist/antd.css';
@@ -19,7 +19,7 @@ const { Sider, Header, Content } = Layout;
 class BasicLayout extends Component {
   constructor(props){
     super(props);
-    // the state class for the collapsed referring to the side bar 
+    // the state class for the collapsed referring to the side bar
     this.state = {
       collapsed: false,
       currentDate: moment(),
@@ -27,20 +27,20 @@ class BasicLayout extends Component {
     };
   }
 
-  // sets the state of the collapsed variable to having the attribute of 
-  // being collapsed down. 
+  // sets the state of the collapsed variable to having the attribute of
+  // being collapsed down.
   onCollapse = (collapsed) => {
     this.setState({ collapsed });
   }
 
-  // sets the current date and logs it out in the console. 
+  // sets the current date and logs it out in the console.
   setCurrentDate = date => {
-    this.setState({ currentDate: date }, () => 
-        console.log(this.state.currentDate) 
+    this.setState({ currentDate: date }, () =>
+        console.log(this.state.currentDate)
     );
   }
 
-  // clears the local stoarage and then reloads it when the cache needs to be emptied. 
+  // clears the local stoarage and then reloads it when the cache needs to be emptied.
   emptyCache = () => {
     window.localStorage.clear();
     window.location.reload();
@@ -49,9 +49,9 @@ class BasicLayout extends Component {
   onBreakpoint = (broken) => {
     this.setState({ broken });
   }
-  
-  // function renders and returns the layout of the app while instantiating 
-  // items within the structure. 
+
+  // function renders and returns the layout of the app while instantiating
+  // items within the structure.
   render() {
     return (
       <Layout className="basicLayout">

@@ -1,9 +1,9 @@
-/* 
-Sai Ranganathan, Hari Kaushik 
-This is the Grocery List component which is later rendered in the app class. It allows the user to add to a 
+/*
+Sai Ranganathan, Hari Kaushik
+This is the Grocery List component which is later rendered in the app class. It allows the user to add to a
 shopping cart for the items they need to buy. It allows them to cross out items that they have bought and that
-data updates constantly with local storage. 
-*/ 
+data updates constantly with local storage.
+*/
 import React, { Component } from 'react';
 
 class GroceryList extends Component {
@@ -12,34 +12,32 @@ class GroceryList extends Component {
 
     //initialize state
     this.state = {
-      tasks: [] //items or tasks array 
+      tasks: [] //items or tasks array
     };
   }
 
-  /* allows to add the tasks or the items to buy into local storage */ 
+  /* allows to add the tasks or the items to buy into local storage */
   addTasksToStorage = () => {
-    let list = []; 
-    this.state.tasks.map(task => {
-      if(!task.complete)
-        list.push(task);
-    }); 
-    window.localStorage.setItem('tasks', JSON.stringify(list)); 
+    let list = this.state.tasks.filter(task => {
+      return !task.complete;
+    });
+    window.localStorage.setItem('tasks', JSON.stringify(list));
   }
 
-  /* 
+  /*
     this function is equivalent to the onload function that initializes and sets
     the local storage
-  */ 
+  */
   componentDidMount() {
     if(window.localStorage.getItem('tasks') !== null) {
-      let retrieved = JSON.parse(window.localStorage.getItem('tasks')); 
+      let retrieved = JSON.parse(window.localStorage.getItem('tasks'));
       let list = [];
       retrieved.forEach(item => {
-        if(!item.complete) { 
+        if(!item.complete) {
           list.push({"id": item.id, "description": item.description, "complete": item.complete});
-        } 
+        }
         this.setState({tasks: list});
-        this.forceUpdate(); 
+        this.forceUpdate();
       })
     }
   }
@@ -50,18 +48,18 @@ class GroceryList extends Component {
       let updatedTasks = currentState.tasks.map((task) => {
         if(task.id === taskId){
           task.complete = !task.complete; // changes the state of the list item to the opposite
-          this.addTasksToStorage(); // add tasks to the local storage 
-        }    
+          this.addTasksToStorage(); // add tasks to the local storage
+        }
         return task;
       })
       return {tasks: updatedTasks}
-    })  
+    })
   }
 
-  /*  
-    function to add task to the current state of the task array and 
-    adds it into local storage. 
-  */  
+  /*
+    function to add task to the current state of the task array and
+    adds it into local storage.
+  */
   addTask = (newDescription) => {
     if(newDescription.length > 0) {
       this.setState((currentState) => {
@@ -77,10 +75,10 @@ class GroceryList extends Component {
     }
   }
 
-  /* 
-    function for rendering the contents of the grocery list which will then be 
-    added to the DOM when the component is instantiated. Creates  
-  */ 
+  /*
+    function for rendering the contents of the grocery list which will then be
+    added to the DOM when the component is instantiated. Creates
+  */
   render() {
     //do data processing
     let incomplete = this.state.tasks.filter((task) => !task.complete);
@@ -99,14 +97,14 @@ class GroceryList extends Component {
   }
 }
 
-class TaskList extends Component {  
+class TaskList extends Component {
   render() {
     //do data processing
     let taskComponents = this.props.tasks.map((eachTask) => {
-      let singleTask = <Item 
-                          //taskkey={eachTask.id} 
+      let singleTask = <Item
+                          //taskkey={eachTask.id}
                           key={eachTask.id}
-                          task={eachTask} 
+                          task={eachTask}
                           howToToggle={this.props.howToToggle}
                           /> //pass callback down
       return singleTask;
@@ -120,24 +118,24 @@ class TaskList extends Component {
   }
 }
 
-/* 
-  This is the item component which takes in props for the key and the on click class 
-  that creates a list item which is then rendered and added on to the grocery list. 
+/*
+  This is the item component which takes in props for the key and the on click class
+  that creates a list item which is then rendered and added on to the grocery list.
   It also has a click property that crosses out the item when clicked and then updates
-  this information in the local storage. 
+  this information in the local storage.
 
-*/ 
+*/
 class Item extends Component {
   getClassName() {
     let className = 'groceryItem';
     if(this.props.task.complete){
-      className = ' font-strike'; // strike out the item when the item is bought 
+      className = ' font-strike'; // strike out the item when the item is bought
     }
-    return className;    
+    return className;
   }
 
-  // handle the click in order to toggle the complete property from true to false or 
-  // vise versa. 
+  // handle the click in order to toggle the complete property from true to false or
+  // vise versa.
   handleClick = () => {
     this.props.howToToggle(this.props.task.id);
   }
@@ -152,33 +150,33 @@ class Item extends Component {
   }
 }
 
-/* 
-  Grocery From component which makes a form and creates a Grocery list component inside it 
-  which has a button in order to add to the list 
-*/  
+/*
+  Grocery From component which makes a form and creates a Grocery list component inside it
+  which has a button in order to add to the list
+*/
 class GroceryForm extends Component {
   constructor(props){
     super(props);
     this.state = {newTask: ''}; //what is typed in
   }
 
-  // handle change event by setting the state of the task to the target value 
-  handleChange = (event) => {    
+  // handle change event by setting the state of the task to the target value
+  handleChange = (event) => {
     let value = event.target.value;
     this.setState({newTask: value})
   }
 
-  // handle click event 
+  // handle click event
   handleClick = (event) => {
     event.preventDefault();
-    this.props.howToAdd(this.state.newTask); 
-    this.setState({newTask: ""});  
+    this.props.howToAdd(this.state.newTask);
+    this.setState({newTask: ""});
   }
 
   render() {
     return (
       <form>
-        <input 
+        <input
           className="form-control mb-3"
           placeholder="Add to Grocery List"
           value={this.state.newTask}
@@ -192,4 +190,4 @@ class GroceryForm extends Component {
   }
 }
 
-export default GroceryList; //export the grocery list component 
+export default GroceryList; //export the grocery list component
