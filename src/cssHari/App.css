@@ -33,7 +33,7 @@
 }
 .main {
   background-color: white;
-  margin-left: 200px;
+  margin-left: 20%;
   height: 100%;
   overflow: auto;
 }
@@ -47,6 +47,7 @@
   height: 100vh; 
   position: fixed;
   left: 0;
+  z-index: 2;
 }
 
 .footer {
@@ -142,9 +143,11 @@
   cursor: pointer;
 }
 
+
 .clearAll, .groceryBtn{
   margin-left: 20px;
   margin-top: 10px;
+  width: 150px;
 }
 
 
@@ -198,7 +201,7 @@ h3 {
     font-size: 14px;
   }
   .mealName {
-    line-height: 30px;
+    line-height: 20px;
   }
 }
 
@@ -206,5 +209,11 @@ h3 {
   .currentDay, .mealName {
     font-size: 16px;
   }
+}
 
+@media (max-width: 992px) {
+  .sideButtons {
+    display: flex;
+    justify-content: center;
+  }
 }
