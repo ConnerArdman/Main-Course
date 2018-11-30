@@ -3,11 +3,11 @@ import { Recipe } from './Recipe';
 import { ShoppingList } from './ShoppingList';
 import ReactLoading from 'react-loading';
 
-export class Recipes extends Component {
+export class RecipeList extends Component {
    render() {
       const {hits, deleteRecipe, loading} = this.props;
       const loaded = hits.length !== 0
-      
+
       return (
          <section id="recipes">
             <h1>Your Custom Meal Plan</h1>
@@ -30,7 +30,7 @@ export class Recipes extends Component {
                         </div>
                         }
             </div>
-                        
+
             <p id="plan-placeholder" className={loaded ? "hidden" : null}>
                   {loading ?
                         <ReactLoading id="loading" type={"spin"} color={"Black"} height={150} width={150} /> :

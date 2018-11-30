@@ -1,11 +1,14 @@
 import React, { Component, Fragment } from 'react';
 import './App.css';
 import { Filters } from './components/Filters';
-import { Recipes } from './components/Recipes';
+import { RecipeList } from './components/RecipeList';
 import { About } from './components/About';
+import { SignUpForm } from './components/SignUpForm';
 import 'whatwg-fetch';
 
-import { Navbar, Nav, NavItem} from 'react-bootstrap';
+import firebase from 'firebase/app';
+
+import { Navbar, Nav, NavItem } from 'react-bootstrap';
 
 // Maping of macronutrients to calories per gram
 export const MACROS = new Map([
@@ -34,80 +37,123 @@ class App extends Component {
          extraRecipes: [],
          loading: false,
          about: false, // Is on about screen
-         hits: [] // A hit is the term for a recipe in the API
+         hits: [], // A hit is the term for a recipe in the API
+         user: null
       };
    }
 
-   render() {
-      const {hits, loading, about} = this.state;
-      return (
-         <Fragment>
-
-            <Navbar inverse collapseOnSelect fixedTop fluid>
-                  <Navbar.Header>
-                        <Navbar.Brand>
-                              <a href="#" onClick={this.returnHome.bind(this)}>
-                                    Cook Healthy
-                              </a>
-                        </Navbar.Brand>
-                        <Navbar.Toggle/>
-                  </Navbar.Header>
-                  <Navbar.Collapse>
-                        <Nav>
-                              <NavItem eventKey={1} href="#" onClick={this.returnHome.bind(this)}>
-                                    {about ? "Home" : <strong>Home</strong>}
-                              </NavItem>
-                        </Nav>
-                        <Nav>
-                              <NavItem eventKey={1} href="#" onClick={this.gotoAbout.bind(this)}>
-                                    {about ? <strong>About</strong> : "About"}
-                              </NavItem>
-                        </Nav>
-                  </Navbar.Collapse>
-            </Navbar>
-
-            <div className="push"></div>
-
-            {about ?
-                  (<div className="col-container" id="appContainer">
-                        <About/>
-                  </div>)
-                  :
-                  (<div className="col-container" id="appContainer">
-                        <div className="col col1" id="filterContainer">
-                              <Filters fetchQueries={this.fetchQueries.bind(this)}/>
-                        </div>
-
-                        {loading ?
-                              (<div className="col col2 loading" id="recipeContainer">
-                              <Recipes
-                                    hits={hits}
-                                    deleteRecipe={this.deleteRecipe.bind(this)}
-                                    loading={loading} />
-                              </div>)
-                              :
-                              (<div className="col col2" id="recipeContainer">
-                              <Recipes
-                                    hits={hits}
-                                    deleteRecipe={this.deleteRecipe.bind(this)}
-                                    loading={loading} />
-                              </div>)
-                        }
-                  </div>)
-            }
-
-            <footer className="footer">
-                  <p>
-                        <a href="mailto:ardmanc@uw.edu">Conner Ardman, Ian Wohlers</a> &copy; 2018 |&nbsp;
-                        <a href="#" onClick={this.toggleAbout.bind(this)}>
-                              {about ? "Home " : "About "}
-                        </a>
-                        | Data From <a href="https://www.edamam.com">api.edamam.com</a>
-                  </p>
-            </footer>
-         </Fragment>
-      );
+   componentDidMount() {
+      this.authUnRegFunc = firebase.auth().onAuthStateChanged(user => {
+        if (user) {
+            this.setState({
+             user,
+         });
+        }
+      });
    }
+
+   componentWillUnmount() {
+      this.authUnRegFunc();
+   }
+
+   handleSignUp = (email, password) => {
+      firebase.auth().createUserWithEmailAndPassword(email, password).catch(console.log);
+   }
+
+   handleSignIn = (email, password) => {
+      firebase.auth().signInWithEmailAndPassword(email, password).then(user => {
+         this.setState({user});
+      }).catch(console.log);
+   }
+
+   handleSignOut = () => {
+      firebase.auth().signOut().then(() => {
+         this.setState({user: null});
+      }).catch(console.log);
+   }
+
+   render() {
+   const {hits, loading, about, user} = this.state;
+   if (user) {
+      return (<Fragment>
+         <Navbar inverse="inverse" collapseOnSelect="collapseOnSelect" fixedTop="fixedTop" fluid="fluid">
+            <Navbar.Header>
+               <Navbar.Brand>
+                  <a href="#" onClick={this.returnHome.bind(this)}>
+                     Cook Healthy
+                  </a>
+               </Navbar.Brand>
+               <Navbar.Toggle/>
+            </Navbar.Header>
+            <Navbar.Collapse>
+               <Nav>
+                  <NavItem eventKey={1} href="#" onClick={this.returnHome.bind(this)}>
+                     {
+                        about
+                           ? "Home"
+                           : <strong>Home</strong>
+                     }
+                  </NavItem>
+               </Nav>
+               <Nav>
+                  <NavItem eventKey={1} href="#" onClick={this.gotoAbout.bind(this)}>
+                     {
+                        about
+                           ? <strong>About</strong>
+                           : "About"
+                     }
+                  </NavItem>
+               </Nav>
+            </Navbar.Collapse>
+         </Navbar>
+
+         <div className="push"></div>
+
+         {
+            about
+               ? (<div className="col-container" id="appContainer">
+                  <About/>
+               </div>)
+               : (<div className="col-container" id="appContainer">
+                  <div className="col col1" id="filterContainer">
+                     <Filters fetchQueries={this.fetchQueries.bind(this)}/>
+                  </div>
+
+                  {
+                     loading
+                        ? (<div className="col col2 loading" id="recipeContainer">
+                           <RecipeList hits={hits} deleteRecipe={this.deleteRecipe.bind(this)} loading={loading}/>
+                        </div>)
+                        : (<div className="col col2" id="recipeContainer">
+                           <RecipeList hits={hits} deleteRecipe={this.deleteRecipe.bind(this)} loading={loading}/>
+                        </div>)
+                  }
+               </div>)
+         }
+
+         <footer className="footer">
+            <p>
+               <a href="mailto:ardmanc@uw.edu">Conner Ardman, Ian Wohlers</a>
+               &copy; 2018 |&nbsp;
+               <a href="#" onClick={this.toggleAbout.bind(this)}>
+                  {
+                     about
+                        ? "Home "
+                        : "About "
+                  }
+               </a>
+               | Data From
+               <a href="https://www.edamam.com">api.edamam.com</a>
+            </p>
+         </footer>
+      </Fragment>);
+   } else {
+      return (<div className="container">
+         <h1>Sign Up</h1>
+         <SignUpForm signUpCallback={this.handleSignUp} signInCallback={this.handleSignIn}/>
+      </div>);
+   }
+}
 
    toggleAbout() {
       this.setState(prevState => {
