@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './App.css';
 import { SignUpForm } from './components/SignUpForm';
 import BasicLayout from './components/BasicLayout';
 import 'whatwg-fetch';

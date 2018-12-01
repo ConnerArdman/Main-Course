@@ -9,7 +9,7 @@ import Meal from './Meal';
 import 'whatwg-fetch';
 import 'antd/dist/antd.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../cssHari/App.css'
+import '../App.css';
 
 // creates and returns a div component containing all the different meals
 // that were added to the calendar.

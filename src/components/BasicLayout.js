@@ -12,7 +12,7 @@ import Scheduler from './Scheduler';
 import GroceryList from './GroceryList';
 import 'antd/dist/antd.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../cssHari/App.css'
+import '../App.css'
 import moment from 'moment';
 const { Sider, Header, Content } = Layout;
 

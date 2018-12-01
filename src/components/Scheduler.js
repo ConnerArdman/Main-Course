@@ -10,7 +10,7 @@ import MealList from './MealList';
 import 'whatwg-fetch';
 import 'antd/dist/antd.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../cssHari/App.css'
+import '../App.css';
 
 class Scheduler extends Component {
     // constructor in order to keep track of the schedule
