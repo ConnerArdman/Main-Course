@@ -8,7 +8,6 @@ export class Recipe extends Component {
    constructor(props) {
       super(props);
       this.state = {
-         collapsed: false,
          loaded: false
       };
    }
@@ -22,7 +21,7 @@ export class Recipe extends Component {
    render() {
       const {hit} = this.props;
       const {label, image, ingredientLines, url, source} = hit.recipe;
-      const {collapsed, loaded} = this.state;
+      const {loaded} = this.state;
       const loadEffect = loaded ? " loaded" : "";
 
       return (
@@ -41,22 +40,22 @@ export class Recipe extends Component {
                     <Grid fluid={true}>
                         <Row className="show-grid" id="grid">
                             <Col xs={12} md={6}>
-                                <img src={image} alt={label} className={collapsed ? "hidden" : null} />
+                                <img src={image} alt={label} />
                             </Col>
                             <Col xs={12} md={6}>
                                 <div className = "pieContainer">
-                                    <NutritionLabel hit={hit} hidden={collapsed ? true : false} />
+                                    <NutritionLabel hit={hit} />
                                 </div>
                             </Col>
                         </Row>
                     </Grid>
                 </Panel.Body>
                 <Panel.Footer>
-                    <h1 className={collapsed ? "hidden" : null}>
+                    <h1>
                         <a href={url} target="_blank" rel="noopener noreferrer">{"Full Recipe From " + source}</a>
                     </h1>
 
-                    <ul className={collapsed ? "hidden" : null}>
+                    <ul>
                         {ingredientLines.map((ingredient, index) => {
                             return <li key={index}>{ingredient}</li>
                         })}
@@ -74,14 +73,6 @@ export class Recipe extends Component {
          this.props.deleteRecipe();
          this.setState({loaded: true});
       }, TRANSITION_TIME);
-   }
-
-   collapse() {
-      this.setState(prevState => {
-         return {
-            collapsed: !prevState.collapsed
-         };
-      });
    }
 
 }

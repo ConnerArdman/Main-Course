@@ -45,7 +45,6 @@ export class RecipeGenerator extends Component {
             <div className={cols} id="recipeContainer">
                <RecipeList hits={hits} deleteRecipe={this.deleteRecipe.bind(this)} loading={loading}/>
             </div>
-            }
          </div>
 
       );

@@ -7,31 +7,15 @@
  */
 
 // Global Variables: Changing these should control the majority of the design of the page
-@footer-color: linear-gradient(#1a3d78, #122b55);
-@filter-color: #252525;
-@heading-color: linear-gradient(#348091, #225d6b);
+@primary-background-color: #212529;
 @background-color: radial-gradient(#f0e0b7, #f0c44e);
-@recipe-color: radial-gradient(#d1c7c7, #918787);
-@inverted-text-color: white;
-@heading-text-border: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
-@section-border-size: 2px;
-@section-border: @section-border-size solid black;
 @component-spacing: 10px;
-@text-padding: 5px;
-@main-height: 85vh;
 @slider-radius: 40px;
-@filter-width: 80%;
-@plan-border-radius: 15px;
-@max-recipe-image-width: 250px;
-@max-recipe-image-height: 250px;
-
 @chart-height: 320px;
 @chart-width: 250px;
-
 @chart-size: 200px;
 @del-size: 30px;
 @del-border: 2px solid black;
-
 @slider-width: 80%;
 @slider-margin: 15px 0;
 @slider-height: 5px;
@@ -45,9 +29,9 @@
 @slider-color-light: #2D7DB3;
 @slider-color-dark: #2D7DB3;
 
-// Calculating how much room is left for header and footer after main and borders
-@total-header-room: (100vh - @main-height) / 2;
-@header-footer-height: ~"calc(@{total-header-room} - @{section-border-size})";
+.ant-layout-sider, .ant-layout-header, .ant-layout-sider-trigger {
+   background-color: @primary-background-color;
+}
 
 .panel-heading {
    position: relative;
@@ -99,10 +83,6 @@
   color: white;
   margin: auto;
   padding-top: 20px;
-}
-
-.hidden {
-  display: none;
 }
 
 .title {
@@ -172,6 +152,7 @@
   font-size: 9px;
   margin-right: 4px;
 }
+
 .event-normal {
   color: #108ee9;
 }
@@ -179,6 +160,7 @@
 .notes-month {
   text-align: center;
 }
+
 .notes-month section {
   font-size: 28px;
 }
@@ -226,13 +208,14 @@
   cursor: pointer;
 }
 
+.sideButtons {
+   text-align: center;
+}
 
-.clearAll, .groceryBtn{
-  margin-left: 20px;
+.clearAll, .groceryBtn {
   margin-top: 10px;
   width: 150px;
 }
-
 
 .imgContainer {
   text-align: center;
@@ -251,13 +234,13 @@ h3 {
   margin: 20px;
 }
 
-.mealModal{
+.mealModal {
   height: 80vh;
   overflow: auto;
   padding: 0;
 }
 
-.youtubeContainer{
+.youtubeContainer {
   text-align: center;
   font-size: 14pt;
   margin-bottom: 10px;
@@ -328,7 +311,7 @@ main {
   text-align: left;
   padding: 1%;
   width: 25%;
-  background: #315553;
+  background: @primary-background-color;
   color: white;
 }
 
@@ -386,6 +369,10 @@ main {
   background: red;
 }
 
+input[type=checkBox] {
+   margin-right: 5px;
+}
+
 #about-page {
   background: white;
 
@@ -410,6 +397,22 @@ main {
   p {
     font-size: 2rem;
   }
+}
+
+#filters {
+   >h1 {
+      font-size: 3.5rem !important;
+      margin-bottom: 15px;
+   }
+
+   h3 {
+      text-align: left;
+      font-size: 2rem;
+   }
+
+   >div {
+      margin-bottom: 15px;
+   }
 }
 
 /**
@@ -527,6 +530,7 @@ input[type=range] {
 
    .sideButtons {
       display: flex;
-      justify-content: center;
+      align-items: center;
+      flex-direction: column;
    }
 }
