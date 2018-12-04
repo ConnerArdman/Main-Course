@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { SignUpForm } from './components/SignUpForm';
 import BasicLayout from './components/BasicLayout';
+import {RecipeGenerator} from './components/RecipeGenerator';
 import 'whatwg-fetch';
 import firebase from 'firebase/app';
 

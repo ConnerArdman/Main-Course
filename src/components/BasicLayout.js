@@ -12,7 +12,7 @@ import Scheduler from './Scheduler';
 import GroceryList from './GroceryList';
 import 'antd/dist/antd.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../App.css'
+import '../App.css';
 import moment from 'moment';
 const { Sider, Header, Content } = Layout;
 
@@ -71,13 +71,11 @@ class BasicLayout extends Component {
           <div className="sideButtons">
             <Popover placement='right' content={<GroceryList />} trigger="click" title="My Grocery List">
               <Button className={this.state.collapsed ? "hidden" : "groceryBtn"} type="primary">
-                <Icon type="bars" />
                 <span>Grocery List</span>
               </Button>
             </Popover>
             <Popconfirm placement='right' title="Are you sure you want to clear the cache?" onConfirm={this.emptyCache} okText="Yes" cancelText="No">
               <Button className={this.state.collapsed ? "hidden" : "clearAll"} type="primary">
-                <Icon type="delete" />
                 Clear schedule
               </Button>
             </Popconfirm>
