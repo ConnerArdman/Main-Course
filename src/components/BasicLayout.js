@@ -7,7 +7,7 @@
 */
 
 import React, { Component } from 'react';
-import { Layout, Icon, Button, Popconfirm, Popover} from 'antd';
+import { Layout, Button, Popconfirm, Popover} from 'antd';
 import Scheduler from './Scheduler';
 import GroceryList from './GroceryList';
 import 'antd/dist/antd.css';
@@ -22,7 +22,6 @@ class BasicLayout extends Component {
     // the state class for the collapsed referring to the side bar
     this.state = {
       collapsed: false,
-      currentDate: moment(),
       broken: false
     };
   }
@@ -31,13 +30,6 @@ class BasicLayout extends Component {
   // being collapsed down.
   onCollapse = (collapsed) => {
     this.setState({ collapsed });
-  }
-
-  // sets the current date and logs it out in the console.
-  setCurrentDate = date => {
-    this.setState({ currentDate: date }, () =>
-        console.log(this.state.currentDate)
-    );
   }
 
   // clears the local stoarage and then reloads it when the cache needs to be emptied.
@@ -84,11 +76,11 @@ class BasicLayout extends Component {
         <Layout className={this.state.collapsed ? "main main-grow" : "main"}>
           <Header className="header">
             <h2 className="currentDay">
-              {this.state.currentDate.format("MMMM Do, YYYY")}
+              {this.props.currentDate.format("MMMM Do, YYYY")}
             </h2>
           </Header>
           <Content className="mainContent" >
-            <Scheduler currentDate={this.state.currentDate} setDate={this.setCurrentDate}/>
+            <Scheduler currentDate={this.props.currentDate} setDate={this.props.setDate}/>
           </Content>
         </Layout>
       </Layout>
