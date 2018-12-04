@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
 import { SignUpForm } from './components/SignUpForm';
 import BasicLayout from './components/BasicLayout';
-import {RecipeGenerator} from './components/RecipeGenerator';
+import { RecipeGenerator } from './components/RecipeGenerator';
+import moment from 'moment';
 import 'whatwg-fetch';
 import firebase from 'firebase/app';
+import { Route, Switch, Redirect } from 'react-router-dom';
 
 class App extends Component {
    constructor(props) {
       super(props);
       this.state = {
          loading: true,
-         user: null
+         user: null,
+         currentDate: moment()
       };
    }
 
@@ -25,6 +28,13 @@ class App extends Component {
 
    componentWillUnmount() {
       this.authUnRegFunc();
+   }
+
+   // sets the current date and logs it out in the console.
+   setCurrentDate = date => {
+      this.setState({ currentDate: date }, () =>
+         console.log(this.state.currentDate)
+      );
    }
 
    handleSignUp = (email, password) => {
@@ -43,6 +53,26 @@ class App extends Component {
       }).catch(console.log);
    }
 
+   renderHome = routerProps => {
+      return(
+         <BasicLayout 
+            {...routerProps} 
+            currentDate={this.state.currentDate}
+            setDate={this.setCurrentDate} 
+         />
+      );
+   }
+
+   renderGenerator = routerProps => {
+      return(
+         <RecipeGenerator 
+            {...routerProps} 
+            currentDate={this.state.currentDate} 
+            setDate={this.setCurrentDate}
+         />
+      );
+   }
+
    render() {
       const {loading, user} = this.state;
       if (loading) {
@@ -52,7 +82,14 @@ class App extends Component {
            </div>
         );
       } else if (user) {
-         return <BasicLayout />;
+         //return <BasicLayout />;
+         return(
+            <Switch>
+               <Route path='/' exact render={this.renderHome} />
+               <Route path='/generate' render={this.renderGenerator} />
+               <Redirect to='/' />
+            </Switch>
+         );
       } else {
          return (<div className="container">
             <h1>Sign Up</h1>

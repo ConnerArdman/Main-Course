@@ -7,6 +7,7 @@
 import React, { Component } from 'react';
 import { Calendar, Button, Modal } from 'antd';
 import MealList from './MealList';
+import { Link } from 'react-router-dom';
 import 'whatwg-fetch';
 import 'antd/dist/antd.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -184,7 +185,7 @@ class Scheduler extends Component {
     render() {
         return(
             <div className="scheduler">
-                <Button className="getMeal" type="primary" onClick={this.addMeal}>Get A Meal</Button>
+                <Button className="getMeal" type="primary" onClick={this.addMeal}><Link to='/generate'>Get A Meal</Link></Button>
                 <Calendar onSelect={this.props.setDate} dateCellRender={this.dateCellRender}/>
                 <MealList
                     meals={this.state.schedule[this.props.currentDate.format("MMDDYY")]}
