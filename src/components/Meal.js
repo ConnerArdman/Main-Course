@@ -8,7 +8,7 @@ import React, { Component } from 'react';
 import { Row, Icon, Popconfirm } from 'antd';
 import 'whatwg-fetch';
 import 'antd/dist/antd.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import '../bootstrap.css';
 import '../App.css';
 
 class Meal extends Component {

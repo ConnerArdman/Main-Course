@@ -10,7 +10,7 @@ import MealList from './MealList';
 import { Link } from 'react-router-dom';
 import 'whatwg-fetch';
 import 'antd/dist/antd.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import '../bootstrap.css';
 import '../App.css';
 
 class Scheduler extends Component {

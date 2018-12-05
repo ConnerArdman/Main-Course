@@ -11,7 +11,7 @@ import { Layout, Button, Popconfirm, Popover} from 'antd';
 import Scheduler from './Scheduler';
 import GroceryList from './GroceryList';
 import 'antd/dist/antd.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import '../bootstrap.css';
 import '../App.css';
 import moment from 'moment';
 const { Sider, Header, Content } = Layout;
@@ -80,8 +80,8 @@ class BasicLayout extends Component {
             </h2>
           </Header>
           <Content className="mainContent" >
-            <Scheduler 
-              currentDate={this.props.currentDate} 
+            <Scheduler
+              currentDate={this.props.currentDate}
               setDate={this.props.setDate}
               schedule={this.props.schedule}
             />

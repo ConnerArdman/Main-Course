@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { NutritionLabel } from './NutritionLabel';
-import {Panel, Grid, Row, Col} from 'react-bootstrap';
+import { Panel, Grid, Row, Col } from 'react-bootstrap';
 
 const TRANSITION_TIME = 1000; // in ms
 
@@ -25,7 +25,7 @@ export class Recipe extends Component {
       const loadEffect = loaded ? " loaded" : "";
 
       return (
-        <Panel id="collapsible-panel-example-2" defaultExpanded={false} className={"recipe" + loadEffect}>
+        <Panel defaultExpanded={false} className={"recipe" + loadEffect}>
             <Panel.Heading>
                 <Panel.Title toggle>
                     {label}

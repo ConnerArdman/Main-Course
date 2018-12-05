@@ -119,7 +119,6 @@ class App extends Component {
           </div>
         );
       } else if (user) {
-         //return <BasicLayout />;
          return(
             <Switch>
                <Route path='/' exact render={this.renderHome} />
