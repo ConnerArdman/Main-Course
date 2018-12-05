@@ -22,7 +22,9 @@ export class Filters extends Component {
       const {meals, cookTime, carbs, protein, fat} = this.state;
       return (
          <section id="filters">
-            <h1>Custom Filters</h1>
+            <div className="pageTitle">
+               <h1>Main Course</h1>
+            </div>
 
             <Slider
                   className="control-option"

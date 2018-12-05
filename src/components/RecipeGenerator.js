@@ -1,7 +1,9 @@
-import React, { Component } from 'react'; //import React Component
+import React, { Component, Fragment } from 'react'; //import React Component
 import { Filters } from './Filters';
 import { RecipeList } from './RecipeList';
 import { Redirect } from 'react-router-dom';
+import { Layout } from 'antd';
+const { Header, Content, Sider } = Layout;
 
 // Maping of macronutrients to calories per gram
 export const MACROS = new Map([
@@ -56,16 +58,25 @@ export class RecipeGenerator extends Component {
          );
       }
       return (
-         <div className="col-container" id="appContainer">
-            <div className="col col1" id="filterContainer">
+         <Layout className="basicLayout">
+           <Sider
+             breakpoint='lg'
+             className="sider"
+             width="20%"
+           >
                <Filters fetchQueries={this.fetchQueries.bind(this)} saveRecipe={this.handleSave}/>
-            </div>
-
-            <div className={cols} id="recipeContainer">
-               <RecipeList hits={hits} deleteRecipe={this.deleteRecipe.bind(this)} loading={loading}/>
-            </div>
-         </div>
-
+           </Sider>
+           <Layout className={this.state.collapsed ? "main main-grow" : "main"}>
+             <Header className="header">
+               <h2 className="currentDay">
+                 {this.props.currentDate.format("MMMM Do, YYYY")}
+               </h2>
+             </Header>
+             <Content className="mainContent" >
+                <RecipeList hits={hits} deleteRecipe={this.deleteRecipe.bind(this)} loading={loading}/>
+             </Content>
+           </Layout>
+         </Layout>
       );
    }
 
