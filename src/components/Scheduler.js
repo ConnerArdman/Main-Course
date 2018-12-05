@@ -18,7 +18,6 @@ class Scheduler extends Component {
     constructor(props){
         super(props);
         this.state = {
-            schedule: {},
             newMeal: "",
             visible: false
         };
@@ -30,10 +29,6 @@ class Scheduler extends Component {
     }*/
 
     // get the meal and the set schedule from the cache on the window on load
-    componentDidMount() {
-        this.fetchMeal();
-        this.setScheduleFromCache();
-    }
 
     setScheduleFromCache = () => {
         if(window.localStorage.getItem('schedule') !== null) {
@@ -69,12 +64,12 @@ class Scheduler extends Component {
     }
 
     getCellData = date => {
-        let meals = this.state.schedule[date.format("MMDDYY")];
+        let meals = this.props.schedule[date.format("MMDDYY")];
         let listData = [];
         meals && meals.forEach(meal => {
             if(!meal.deleted){
                 listData.push(
-                    {type: 'normal',  content: meal.mealName}
+                    {type: 'normal',  content: meal.label}
                 );
             }
         });
@@ -100,7 +95,7 @@ class Scheduler extends Component {
 
     // remove a meal from the schedule
     deleteMeal = meal => {
-        let meals = this.state.schedule[this.props.currentDate.format("MMDDYY")];
+        let meals = this.props.schedule[this.props.currentDate.format("MMDDYY")];
         meals.find(item => {
             return item.mealName === meal.mealName;
         }).deleted = true;
@@ -110,8 +105,8 @@ class Scheduler extends Component {
     // add a meal on to the schduler with all the appropriate data from the fetched api
     addMeal = () => {
         let list = [];
-        if(this.state.schedule[this.props.currentDate.format("MMDDYY")]){
-            list = this.state.schedule[this.props.currentDate.format("MMDDYY")];
+        if(this.props.schedule[this.props.currentDate.format("MMDDYY")]){
+            list = this.props.schedule[this.props.currentDate.format("MMDDYY")];
         }
         let meal = this.cleanMeal(this.state.newMeal.meals[0]);
 
@@ -134,7 +129,7 @@ class Scheduler extends Component {
                 [this.props.currentDate.format("MMDDYY")]: list
             }
         }));
-        window.localStorage.setItem('schedule', JSON.stringify(this.state.schedule));
+        window.localStorage.setItem('schedule', JSON.stringify(this.props.schedule));
     }
 
     // clean response from api to create meal with only relevant data
@@ -185,10 +180,10 @@ class Scheduler extends Component {
     render() {
         return(
             <div className="scheduler">
-                <Button className="getMeal" type="primary" onClick={this.addMeal}><Link to='/generate'>Get A Meal</Link></Button>
+                <Button className="getMeal" type="primary"><Link to='/generate'>Get A Meal</Link></Button>
                 <Calendar onSelect={this.props.setDate} dateCellRender={this.dateCellRender}/>
                 <MealList
-                    meals={this.state.schedule[this.props.currentDate.format("MMDDYY")]}
+                    meals={this.props.schedule[this.props.currentDate.format("MMDDYY")]}
                     deleteMeal={this.deleteMeal}
                     openModal={this.openModal}
                     openMeal={this.openMeal}

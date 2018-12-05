@@ -22,7 +22,7 @@ class BasicLayout extends Component {
     // the state class for the collapsed referring to the side bar
     this.state = {
       collapsed: false,
-      broken: false
+      broken: false,
     };
   }
 
@@ -80,7 +80,11 @@ class BasicLayout extends Component {
             </h2>
           </Header>
           <Content className="mainContent" >
-            <Scheduler currentDate={this.props.currentDate} setDate={this.props.setDate}/>
+            <Scheduler 
+              currentDate={this.props.currentDate} 
+              setDate={this.props.setDate}
+              schedule={this.props.schedule}
+            />
           </Content>
         </Layout>
       </Layout>

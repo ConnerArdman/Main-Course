@@ -1,6 +1,7 @@
 import React, { Component } from 'react'; //import React Component
 import { Filters } from './Filters';
 import { RecipeList } from './RecipeList';
+import { Redirect } from 'react-router-dom';
 
 // Maping of macronutrients to calories per gram
 export const MACROS = new Map([
@@ -29,16 +30,35 @@ export class RecipeGenerator extends Component {
          extraRecipes: [],
          loading: false,
          hits: [], // A hit is the term for a recipe in the API
+         saved: false
       };
+   }
+
+   testHits = () => {
+      console.log(this.state.hits);
+   }
+
+   handleSave = () => {
+      let recipes = [];
+      this.state.hits.map(hit =>{
+         recipes.push(hit.recipe);
+      });
+      this.props.saveRecipe(recipes);
+      this.setState({saved: true});
    }
 
    render() {
       const {hits, loading} = this.state;
       const cols = "col col2" + (loading ? " loading" : "");
+      if(this.state.saved){
+         return(
+            <Redirect to="/"/>
+         );
+      }
       return (
          <div className="col-container" id="appContainer">
             <div className="col col1" id="filterContainer">
-               <Filters fetchQueries={this.fetchQueries.bind(this)} saveRecipe={this.props.saveRecipe}/>
+               <Filters fetchQueries={this.fetchQueries.bind(this)} saveRecipe={this.handleSave}/>
             </div>
 
             <div className={cols} id="recipeContainer">
@@ -106,6 +126,7 @@ export class RecipeGenerator extends Component {
          hits: hits.slice(0, numMeals),
          loading: false
       });
+      this.testHits();
    }
 
    deleteRecipe(index) {

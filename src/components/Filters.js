@@ -3,7 +3,6 @@ import { Slider } from './Slider';
 import { SliderGroup } from './SliderGroup';
 import { CheckBoxGroup } from './CheckBoxGroup';
 import { MACROS } from './RecipeGenerator';
-
 import { Button } from 'react-bootstrap';
 
 export class Filters extends Component {
@@ -110,7 +109,7 @@ export class Filters extends Component {
                      bsSize="large"
                      type="button"
                      onClick={this.props.saveRecipe}>
-                     Save Recipe
+                     Save Recipes
                </Button>
             </div>
          </section>
