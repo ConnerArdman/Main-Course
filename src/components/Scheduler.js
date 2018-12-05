@@ -93,7 +93,7 @@ class Scheduler extends Component {
         meals.find(item => {
             return item.label === meal.label;
         }).deleted = true;
-        this.updateSchedule(meals);
+        this.props.updateSchedule(meals);
     }
 
     // has the information for all the modal that is supposed to pop up when viewing the food

@@ -93,6 +93,7 @@ class App extends Component {
             currentDate={this.state.currentDate}
             setDate={this.setCurrentDate}
             schedule={this.state.schedule}
+            updateSchedule={this.updateSchedule}
          />
       );
    }

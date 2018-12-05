@@ -84,6 +84,7 @@ class BasicLayout extends Component {
               currentDate={this.props.currentDate}
               setDate={this.props.setDate}
               schedule={this.props.schedule}
+              updateSchedule={this.props.updateSchedule}
             />
           </Content>
         </Layout>
