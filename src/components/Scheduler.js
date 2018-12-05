@@ -29,10 +29,6 @@ class Scheduler extends Component {
     }*/
 
     // get the meal and the set schedule from the cache on the window on load
-    componentDidMount() {
-        this.fetchMeal();
-        this.setScheduleFromCache();
-    }
 
     setScheduleFromCache = () => {
         if(window.localStorage.getItem('schedule') !== null) {
@@ -73,7 +69,7 @@ class Scheduler extends Component {
         meals && meals.forEach(meal => {
             if(!meal.deleted){
                 listData.push(
-                    {type: 'normal',  content: meal.mealName}
+                    {type: 'normal',  content: meal.label}
                 );
             }
         });
@@ -184,7 +180,7 @@ class Scheduler extends Component {
     render() {
         return(
             <div className="scheduler">
-                <Button className="getMeal" type="primary" onClick={this.addMeal}><Link to='/generate'>Get A Meal</Link></Button>
+                <Button className="getMeal" type="primary"><Link to='/generate'>Get A Meal</Link></Button>
                 <Calendar onSelect={this.props.setDate} dateCellRender={this.dateCellRender}/>
                 <MealList
                     meals={this.props.schedule[this.props.currentDate.format("MMDDYY")]}

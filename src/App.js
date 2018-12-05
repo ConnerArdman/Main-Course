@@ -25,10 +25,41 @@ class App extends Component {
             this.setState({user});
          }
       });
+      this.setScheduleFromCache();
    }
 
    componentWillUnmount() {
       this.authUnRegFunc();
+   }
+
+   // add a meal on to the schduler with all the appropriate data from the fetched api
+   addMeal = (meals) => {
+      let list = [];
+      if(this.state.schedule[this.state.currentDate.format("MMDDYY")]){
+            list = this.state.schedule[this.state.currentDate.format("MMDDYY")];
+      }
+      meals.map(meal => {
+         list.push(meal);
+      });
+      this.updateSchedule(list);
+   }
+
+   updateSchedule = list => {
+      this.setState(prevState => ({
+         schedule: {
+            ...prevState.schedule,
+            [this.state.currentDate.format("MMDDYY")]: list
+         }
+      }));
+      window.localStorage.setItem('schedule', JSON.stringify(this.state.schedule));
+   }
+
+   setScheduleFromCache = () => {
+      if(window.localStorage.getItem('schedule') !== null) {
+         let retrieved = JSON.parse(window.localStorage.getItem('schedule'));
+         //console.log(retrieved);
+         this.setState({schedule: retrieved});
+      }
    }
 
    // sets the current date and logs it out in the console.
@@ -72,6 +103,7 @@ class App extends Component {
             currentDate={this.state.currentDate} 
             setDate={this.setCurrentDate}
             schedule={this.state.schedule}
+            saveRecipe={this.addMeal}
          />
       );
    }
