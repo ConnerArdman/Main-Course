@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { SignUpForm } from './components/SignUpForm';
 import BasicLayout from './components/BasicLayout';
 import { RecipeGenerator } from './components/RecipeGenerator';
+import {AboutPage} from './components/About'; 
 import moment from 'moment';
 import 'whatwg-fetch';
 import firebase from 'firebase/app';
@@ -123,6 +124,7 @@ class App extends Component {
             <Switch>
                <Route path='/' exact render={this.renderHome} />
                <Route path='/generate' render={this.renderGenerator} />
+               <Route path='/about' component={AboutPage} /> 
                <Redirect to='/' />
             </Switch>
          );

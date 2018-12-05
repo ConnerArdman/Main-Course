@@ -10,12 +10,16 @@ export class About extends Component {
                     The original idea here was to create an application that would somehow make the
                     lives of students easier. As a student myself, I found that I was constantly
                     eating out, because I was running out of ideas of what to make. As a result, I
-                    was spending more money than I wanted to on food. To solve this problem, I
-                    created Cook Healhty, an application to help create a
-                    <strong> cheap daily meal plan</strong>. The idea is pretty simple, you can add
-                    filters based on nutritional goals, and Cook Healthy will
-                    automatically create a customized plan with recipes and a weekly shopping cart
-                    to bring to the grocery story.
+                    was spending more money than I wanted to on food. To solve this problem, we created
+                    Meal Time. Meal Time is a mobile-first web application that is a combination of two
+                    different apps aimed at making the cooking process simpler. The user simply inputs 
+                    their meal preferences indicated by sliders, we generate a new list of recipes for them. 
+                    They will then be allowed to add their meals to the calnedar interface, which can help 
+                    them keep track of when they want to make their food. Additionally, there is a grocery
+                    list interface which helps them plans out the ingredients that they have to buy. The 
+                    ida is pretty simple, and by adding filters based on nutritional goals, we believe that 
+                    Meal Time could be a perfect way that students can <stong>eat healthy and save money</stong>
+                    in a more efficient manner. 
                 </p>
             </div>
 

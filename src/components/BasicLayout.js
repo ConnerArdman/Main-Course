@@ -71,6 +71,9 @@ class BasicLayout extends Component {
                 Clear schedule
               </Button>
             </Popconfirm>
+            <Button className={this.state.collapsed ? "hidden" : "logoutBtn"} type="primary">
+                <span>Logout</span>
+            </Button>
           </div>
         </Sider>
         <Layout className={this.state.collapsed ? "main main-grow" : "main"}>
