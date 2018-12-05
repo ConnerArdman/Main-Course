@@ -32,6 +32,10 @@ export class RecipeGenerator extends Component {
       };
    }
 
+   testHits = () => {
+      console.log(this.state.hits);
+   }
+
    render() {
       const {hits, loading} = this.state;
       const cols = "col col2" + (loading ? " loading" : "");
@@ -106,6 +110,7 @@ export class RecipeGenerator extends Component {
          hits: hits.slice(0, numMeals),
          loading: false
       });
+      this.testHits();
    }
 
    deleteRecipe(index) {

@@ -13,7 +13,8 @@ class App extends Component {
       this.state = {
          loading: true,
          user: null,
-         currentDate: moment()
+         currentDate: moment(),
+         schedule: {}
       };
    }
 
@@ -58,7 +59,8 @@ class App extends Component {
          <BasicLayout 
             {...routerProps} 
             currentDate={this.state.currentDate}
-            setDate={this.setCurrentDate} 
+            setDate={this.setCurrentDate}
+            schedule={this.state.schedule}
          />
       );
    }
@@ -69,6 +71,7 @@ class App extends Component {
             {...routerProps} 
             currentDate={this.state.currentDate} 
             setDate={this.setCurrentDate}
+            schedule={this.state.schedule}
          />
       );
    }
