@@ -19,8 +19,8 @@ class Meal extends Component {
     }
 
     // the modal that is opened with all the meals on it
-    openModal = () => {
-        this.props.openModal();
+
+    handleClick = () => {
         this.props.openMeal(this.props.meal);
     }
 
@@ -30,12 +30,12 @@ class Meal extends Component {
         let meal = this.props.meal;
         return(
             <Row className="meal">
-                <Row className="clickable" onClick={this.openModal}>
+                <Row className="clickable" onClick={this.handleClick}>
                     <div className="thumbnail">
-                        <img className="pic" src={meal.imgUrl} alt={meal.mealName} />
+                        <img className="pic" src={meal.image} alt={meal.label} />
                     </div>
                     <div className="mealName">
-                        {meal.mealName}
+                        {meal.label}
                     </div>
                 </Row>
                 <div className="delete">
