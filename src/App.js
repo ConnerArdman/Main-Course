@@ -15,7 +15,8 @@ class App extends Component {
          loading: true,
          user: null,
          currentDate: moment(),
-         schedule: {}
+         schedule: {},
+         errorMessage: null
       };
    }
 
@@ -58,7 +59,6 @@ class App extends Component {
    setScheduleFromCache = () => {
       if(window.localStorage.getItem('schedule') !== null) {
          let retrieved = JSON.parse(window.localStorage.getItem('schedule'));
-         //console.log(retrieved);
          this.setState({schedule: retrieved});
       }
    }
@@ -71,19 +71,35 @@ class App extends Component {
    }
 
    handleSignUp = (email, password) => {
-      firebase.auth().createUserWithEmailAndPassword(email, password).catch(console.log);
+      this.setState({errorMessage: null});
+      if (!email && !password) {
+         this.error({message: "Please provide an email and password"});
+      } else if (!email) {
+         this.error({message: "Please provide an email."});
+      } else if (!password) {
+         this.error({message: "Please provide a password."});
+      } else {
+         firebase.auth().createUserWithEmailAndPassword(email, password).catch(this.error.bind(this));
+      }
    }
 
    handleSignIn = (email, password) => {
+      this.setState({errorMessage: null});
       firebase.auth().signInWithEmailAndPassword(email, password).then(user => {
-         this.setState({user});
-      }).catch(console.log);
+         this.setState({user, errorMessage: null});
+      }).catch(this.error.bind(this));
    }
 
    handleSignOut = () => {
       firebase.auth().signOut().then(() => {
-         this.setState({user: null});
+         this.setState({
+            user: null,
+            errorMessage: null});
       }).catch(console.log);
+   }
+
+   error(msg) {
+      this.setState({errorMessage: msg.message});
    }
 
    renderHome = routerProps => {
@@ -94,6 +110,7 @@ class App extends Component {
             setDate={this.setCurrentDate}
             schedule={this.state.schedule}
             updateSchedule={this.updateSchedule}
+            logOut={this.handleSignOut}
          />
       );
    }
@@ -111,7 +128,9 @@ class App extends Component {
    }
 
    render() {
-      const {loading, user} = this.state;
+      const {loading, user, errorMessage} = this.state;
+      const error = errorMessage != null ? <p className="alert alert-danger">{errorMessage}</p> : null;
+
       if (loading) {
         return (
            <div className="loading-screen">
@@ -129,7 +148,8 @@ class App extends Component {
          );
       } else {
          return (<div className="container">
-            <h1>Sign Up</h1>
+            {error}
+            <h1>Sign Up / Sign In</h1>
             <SignUpForm signUpCallback={this.handleSignUp} signInCallback={this.handleSignIn}/>
          </div>);
       }

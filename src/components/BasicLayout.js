@@ -71,6 +71,13 @@ class BasicLayout extends Component {
                 Clear schedule
               </Button>
             </Popconfirm>
+            <div>
+            </div>
+            <Popconfirm placement='right' title="Are you sure you want to log out?" onConfirm={this.props.logOut} okText="Yes" cancelText="No">
+             <Button className={this.state.collapsed ? "hidden" : "clearAll"} type="primary">
+                Log Out
+             </Button>
+            </Popconfirm>
           </div>
         </Sider>
         <Layout className={this.state.collapsed ? "main main-grow" : "main"}>

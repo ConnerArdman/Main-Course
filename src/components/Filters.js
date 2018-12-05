@@ -4,6 +4,7 @@ import { SliderGroup } from './SliderGroup';
 import { CheckBoxGroup } from './CheckBoxGroup';
 import { MACROS } from './RecipeGenerator';
 import { Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 export class Filters extends Component {
    constructor(props) {
@@ -23,7 +24,7 @@ export class Filters extends Component {
       return (
          <section id="filters">
             <div className="pageTitle">
-               <h1>Main Course</h1>
+               <Link to='/'><h1>Main Course</h1></Link>
             </div>
 
             <Slider
