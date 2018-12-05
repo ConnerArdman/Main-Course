@@ -1,7 +1,6 @@
 import React, { Component } from 'react'; //import React Component
 import { Filters } from './Filters';
 import { RecipeList } from './RecipeList';
-import { Navbar, Nav, NavItem } from 'react-bootstrap';
 
 // Maping of macronutrients to calories per gram
 export const MACROS = new Map([
@@ -39,7 +38,7 @@ export class RecipeGenerator extends Component {
       return (
          <div className="col-container" id="appContainer">
             <div className="col col1" id="filterContainer">
-               <Filters fetchQueries={this.fetchQueries.bind(this)}/>
+               <Filters fetchQueries={this.fetchQueries.bind(this)} saveRecipe={this.props.saveRecipe}/>
             </div>
 
             <div className={cols} id="recipeContainer">

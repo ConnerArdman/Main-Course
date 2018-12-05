@@ -97,13 +97,22 @@ export class Filters extends Component {
                   change={this.addRestriction.bind(this)}
                   />
 
-            <Button
-                  bsStyle="primary"
-                  bsSize="large"
-                  type="button"
-                  onClick={this.generateRecipes.bind(this)}>
-                  Generate Recipes
-            </Button>
+            <div className="button-group">
+               <Button
+                     bsStyle="primary"
+                     bsSize="large"
+                     type="button"
+                     onClick={this.generateRecipes.bind(this)}>
+                     Generate Recipes
+               </Button>
+               <Button
+                     bsStyle="primary"
+                     bsSize="large"
+                     type="button"
+                     onClick={this.props.saveRecipe}>
+                     Save Recipe
+               </Button>
+            </div>
          </section>
       );
    }
