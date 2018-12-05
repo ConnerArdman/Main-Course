@@ -282,7 +282,7 @@ footer {
 
 body {
   font-family: "Helvetica Neue", Arial, sans-serif;
-  background: @background-color;
+  // background: @background-color;
   background-repeat: no-repeat;
   font-size: 16px; /* Base font size */
   position: relative;
@@ -336,10 +336,11 @@ main {
 .button-group {
    display: flex;
    justify-content: flex-start;
+   flex-direction: column;
 
    button {
-      margin-left: 5px;
-      margin-right: 5px;
+      margin-top: 5px;
+      margin-bottom: 5px;
    }
 }
 
@@ -388,6 +389,10 @@ input[type=checkBox] {
    margin-right: 5px;
 }
 
+#recipes {
+   text-align: center;
+}
+
 #about-page {
   background: white;
 
@@ -415,14 +420,20 @@ input[type=checkBox] {
 }
 
 #filters {
+   color: white;
+   padding: 10px;
+   padding-top: 0;
+
+   .pageTitle {
+      text-align: center;
+   }
+
    >h1 {
-      font-size: 3.5rem !important;
       margin-bottom: 15px;
    }
 
    h3 {
       text-align: left;
-      font-size: 2rem;
    }
 
    >div {
