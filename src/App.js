@@ -6,6 +6,7 @@ import moment from 'moment';
 import 'whatwg-fetch';
 import firebase from 'firebase/app';
 import { Route, Switch, Redirect } from 'react-router-dom';
+import ReactLoading from 'react-loading';
 
 class App extends Component {
    constructor(props) {
@@ -87,8 +88,8 @@ class App extends Component {
 
    renderHome = routerProps => {
       return(
-         <BasicLayout 
-            {...routerProps} 
+         <BasicLayout
+            {...routerProps}
             currentDate={this.state.currentDate}
             setDate={this.setCurrentDate}
             schedule={this.state.schedule}
@@ -98,9 +99,9 @@ class App extends Component {
 
    renderGenerator = routerProps => {
       return(
-         <RecipeGenerator 
-            {...routerProps} 
-            currentDate={this.state.currentDate} 
+         <RecipeGenerator
+            {...routerProps}
+            currentDate={this.state.currentDate}
             setDate={this.setCurrentDate}
             schedule={this.state.schedule}
             saveRecipe={this.addMeal}
@@ -112,9 +113,10 @@ class App extends Component {
       const {loading, user} = this.state;
       if (loading) {
         return (
-           <div className="text-center">
-                <i className="fa fa-spinner fa-spin fa-3x" aria-label="Connecting..."></i>
-           </div>
+           <div className="loading-screen">
+                 <ReactLoading id="loading" type={"spin"} color={"Black"} height={150} width={150}/>
+                 <div class="push"></div><div class="push"></div>
+          </div>
         );
       } else if (user) {
          //return <BasicLayout />;
