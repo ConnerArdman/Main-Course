@@ -25,7 +25,6 @@ class MealList extends Component {
                                 key={item.mealName}
                                 meal={item}
                                 deleteMeal={this.props.deleteMeal}
-                                openModal={this.props.openModal}
                                 openMeal={this.props.openMeal}
                             />
                         );

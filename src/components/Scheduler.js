@@ -19,7 +19,8 @@ class Scheduler extends Component {
         super(props);
         this.state = {
             newMeal: "",
-            visible: false
+            visible: false,
+            openMeal: null
         };
     }
 
@@ -51,16 +52,9 @@ class Scheduler extends Component {
 
     closeModal = () => {
         this.setState({
-            visible: false
+            visible: false,
+            openMeal: null
         });
-    }
-
-    // fetch data from the meal db api in order to get information
-    // on all the different foods
-    fetchMeal = () => {
-        fetch('https://www.themealdb.com/api/json/v1/1/random.php')
-            .then(response => response.json())
-            .then(data => this.setState({ newMeal: data }));
     }
 
     getCellData = date => {
@@ -97,56 +91,11 @@ class Scheduler extends Component {
     deleteMeal = meal => {
         let meals = this.props.schedule[this.props.currentDate.format("MMDDYY")];
         meals.find(item => {
-            return item.mealName === meal.mealName;
+            return item.label === meal.label;
         }).deleted = true;
         this.updateSchedule(meals);
     }
 
-    // add a meal on to the schduler with all the appropriate data from the fetched api
-    addMeal = () => {
-        let list = [];
-        if(this.props.schedule[this.props.currentDate.format("MMDDYY")]){
-            list = this.props.schedule[this.props.currentDate.format("MMDDYY")];
-        }
-        let meal = this.cleanMeal(this.state.newMeal.meals[0]);
-
-        list.push({
-            'mealName': meal.strMeal,
-            'instructions': meal.strInstructions,
-            'imgUrl': meal.strMealThumb,
-            'vidUrl': meal.strYoutube,
-            'ingredients': meal.ingredients
-        });
-        this.updateSchedule(list);
-        this.fetchMeal();
-    }
-
-    // set the state of the schedule to have the planned meal
-    updateSchedule = list => {
-        this.setState(prevState => ({
-            schedule: {
-                ...prevState.schedule,
-                [this.props.currentDate.format("MMDDYY")]: list
-            }
-        }));
-        window.localStorage.setItem('schedule', JSON.stringify(this.props.schedule));
-    }
-
-    // clean response from api to create meal with only relevant data
-    cleanMeal = meal => {
-        let cleaned = {};
-        let keep = ['strMeal', 'strInstructions', 'strMealThumb', 'strYoutube'];
-        let keys = Object.keys(meal);
-        let ingredients = [];
-        keys.forEach(key => {
-            if(key.includes("strIngredient") && meal[key] && meal[key].length > 1)
-                ingredients.push(meal[key]);
-            if(keep.includes(key))
-                cleaned[key] = meal[key];
-        });
-        cleaned.ingredients = ingredients;
-        return cleaned;
-    }
     // has the information for all the modal that is supposed to pop up when viewing the food
     // added onto the calendar. Includes the image, the instructions and the youtube
     // video all given back from the api.
@@ -155,39 +104,52 @@ class Scheduler extends Component {
         if(meal){
             return(
                 <div className="modalContent">
+                    <div className="modalButtons">
+                        <Button className="back" type="primary" onClick={() => this.setState({openMeal: null})}>
+                            Back
+                        </Button>
+                    </div>
                     <div className="imgContainer">
-                        <img className="modalImage" src={meal.imgUrl} alt={meal.mealName}/>
+                        <img className="modalImage" src={meal.image} alt={meal.label}/>
                     </div>
                     <h3>Ingredients</h3>
                     <ul>
                         {meal.ingredients.map(item => {
-                            if(item && item.length > 1)
-                                return(<li key={item}>{item}</li>);
-                            else
-                                return(<div className="hidden"></div>);
+                            return(<li key={item}>{item.text}</li>);
                         })}
                     </ul>
                     <h3>Instructions</h3>
-                    <div className="youtubeContainer">
-                        <Button type="primary" href={meal.vidUrl} target="_blank" rel="noopener noreferrer">Watch</Button>
+                    <div className="modalButtons">
+                        <Button type="primary" href={meal.url} target="_blank" rel="noopener noreferrer">See Recipe</Button>
                     </div>
                     <p>{meal.instructions}</p>
                 </div>
             );
+        } else {
+            return(
+                this.renderList()
+            );
         }
     }
+
+    renderList = () => {
+        console.log(this.props.schedule[this.props.currentDate.format("MMDDYY")]);
+        return(
+            <MealList
+                meals={this.props.schedule[this.props.currentDate.format("MMDDYY")]}
+                deleteMeal={this.deleteMeal}
+                openMeal={this.openMeal}
+            />
+        );
+    }
+
     // rendering the entire page with buttons and the calendar interface and all other components
     render() {
         return(
             <div className="scheduler">
                 <Button className="getMeal" type="primary"><Link to='/generate'>Get A Meal</Link></Button>
+                <Button className="getMeal" type="primary" onClick={this.openModal}>View Details</Button>
                 <Calendar onSelect={this.props.setDate} dateCellRender={this.dateCellRender}/>
-                <MealList
-                    meals={this.props.schedule[this.props.currentDate.format("MMDDYY")]}
-                    deleteMeal={this.deleteMeal}
-                    openModal={this.openModal}
-                    openMeal={this.openMeal}
-                />
                 <Modal
                     className="mealModal"
                     title={this.state.openMeal ? this.state.openMeal.mealName : ""}
