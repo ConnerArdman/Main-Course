@@ -115,6 +115,11 @@ export class RecipeGenerator extends Component {
       );
    }
 
+   /**
+    * fetchQueries - Requests the API and displays recipes to the page
+    *
+    * @param  {Object} filters user selected filters
+    */
    fetchQueries(filters) {
       this.setState({loading: true});
       fetch(this.getAPIQuery(filters))
@@ -123,6 +128,12 @@ export class RecipeGenerator extends Component {
          .catch(console.log);
    }
 
+   /**
+    * getAPIQuery - Generates a URL to query from given filter parameters
+    *
+    * @param  {Object} filters user selected filters
+    * @return {String}         URL to query from
+    */
    getAPIQuery(filters) {
       const {
          numMeals,
