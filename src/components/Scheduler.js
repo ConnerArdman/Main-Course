@@ -135,7 +135,6 @@ class Scheduler extends Component {
     }
 
     renderList = () => {
-        console.log(this.props.schedule[this.props.currentDate.format("MMDDYY")]);
         return(
             <MealList
                 meals={this.props.schedule[this.props.currentDate.format("MMDDYY")]}
