@@ -115,7 +115,7 @@ class BasicLayout extends Component {
                 <span>Grocery List</span>
               </Button>
             </Popover>
-            <Popconfirm placement='right' title="Are you sure you want to clear the cache?" onConfirm={this.emptyCache} okText="Yes" cancelText="No">
+            <Popconfirm placement='right' title="Are you sure you want to clear the schedule?" onConfirm={this.emptyCache} okText="Yes" cancelText="No">
               <Button className={this.state.collapsed ? "hidden" : "clearAll"} type="primary">
                 Clear schedule
               </Button>
