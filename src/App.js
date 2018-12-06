@@ -16,7 +16,8 @@ class App extends Component {
          user: null,
          currentDate: moment(),
          schedule: {},
-         errorMessage: null
+         errorMessage: null,
+         content: "main"
       };
    }
 
@@ -111,6 +112,21 @@ class App extends Component {
             schedule={this.state.schedule}
             updateSchedule={this.updateSchedule}
             logOut={this.handleSignOut}
+            content="main"
+         />
+      );
+   }
+
+   renderAbout = routerProps => {
+      return(
+         <BasicLayout
+            {...routerProps}
+            currentDate={this.state.currentDate}
+            setDate={this.setCurrentDate}
+            schedule={this.state.schedule}
+            updateSchedule={this.updateSchedule}
+            logOut={this.handleSignOut}
+            content="about"
          />
       );
    }
@@ -135,7 +151,7 @@ class App extends Component {
         return (
            <div className="loading-screen">
                  <ReactLoading id="loading" type={"spin"} color={"Black"} height={150} width={150}/>
-                 <div class="push"></div><div class="push"></div>
+                 <div className="push"></div><div className="push"></div>
           </div>
         );
       } else if (user) {
@@ -143,6 +159,7 @@ class App extends Component {
             <Switch>
                <Route path='/' exact render={this.renderHome} />
                <Route path='/generate' render={this.renderGenerator} />
+               <Route path='/about' component={this.renderAbout} /> 
                <Redirect to='/' />
             </Switch>
          );
