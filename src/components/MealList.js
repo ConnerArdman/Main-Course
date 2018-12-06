@@ -1,5 +1,5 @@
 /*
-    Hari Kaushik, Sai Ranganathan
+    Hari Kaushik, Sai Ranganathan, Conner Ardmen, Ian Wohlers 
     This is the Meal List component which just creates and returns a div containing
     the rows of all the meals by mapping all the meal items returned by the api when you
     click on add a meal to the calendar.

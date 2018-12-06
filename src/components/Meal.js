@@ -1,5 +1,5 @@
 /*
-    Hari Kaushik, Sai Ranganathan
+    Hari Kaushik, Sai Ranganathan, Conner Ardmen, Ian Wohlers
     This component creates the meals using the Ant Design library which creates a modal
     where there is a table of all the meals with their appropiate pictures which allows for them
     to be deleted.

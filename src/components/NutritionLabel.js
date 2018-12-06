@@ -1,3 +1,8 @@
+/*
+    Hari Kaushik, Sai Ranganathan, Conner Ardman, Ian Wohler 
+    This is the nutrition label which is the component that has all the information that belongs
+    on the slider.  
+*/
 import React, { Component } from 'react';
 import { MACROS } from './RecipeGenerator';
 import { Pie } from 'react-chartjs-2';
