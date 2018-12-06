@@ -149,7 +149,7 @@ class Scheduler extends Component {
             <div className="scheduler">
                 <Button className="getMeal" type="primary"><Link to='/generate'>Get A Meal</Link></Button>
                 <Button className="getMeal" type="primary" onClick={this.openModal}>View Details</Button>
-                <Calendar onSelect={this.props.setDate} dateCellRender={this.dateCellRender}/>
+                <Calendar onSelect={this.props.setDate} dateCellRender={this.dateCellRender} fullscreen={!this.props.broken}/>
                 <Modal
                     className="mealModal"
                     title={this.state.openMeal ? this.state.openMeal.mealName : ""}
