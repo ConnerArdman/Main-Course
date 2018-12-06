@@ -10,10 +10,12 @@ import React, { Component } from 'react';
 import { Layout, Button, Popconfirm, Popover} from 'antd';
 import Scheduler from './Scheduler';
 import GroceryList from './GroceryList';
+import About from './About';
 import 'antd/dist/antd.css';
 import '../bootstrap.css';
 import '../App.css';
 import moment from 'moment';
+import { Redirect } from 'react-router-dom'; 
 const { Sider, Header, Content } = Layout;
 
 class BasicLayout extends Component {
@@ -22,7 +24,7 @@ class BasicLayout extends Component {
     // the state class for the collapsed referring to the side bar
     this.state = {
       collapsed: false,
-      broken: false,
+      broken: false
     };
   }
 
@@ -42,9 +44,55 @@ class BasicLayout extends Component {
     this.setState({ broken });
   }
 
+  aboutNav = () =>  {
+    this.setState({nav: 'about'});
+  }
+
+  homeNav = () => {
+    this.setState({nav: 'main'});
+  }
+
+  renderRoute = () =>  {
+    if(this.state.nav === 'about') {
+      return (
+        <Redirect to='/about'/>
+      );
+    } else {
+      return (
+        <Redirect to='/'/>
+      );
+    }
+  }
+
+  renderContent = () => {
+    if(this.props.content === "about"){
+      return(
+        <About
+          currentDate={this.props.currentDate}
+          setDate={this.props.setDate}
+          schedule={this.props.schedule}
+          updateSchedule={this.props.updateSchedule}
+        />
+      );
+    } else {
+      return(
+        <Scheduler
+          currentDate={this.props.currentDate}
+          setDate={this.props.setDate}
+          schedule={this.props.schedule}
+          updateSchedule={this.props.updateSchedule}
+        />
+      );
+    }
+  }
   // function renders and returns the layout of the app while instantiating
   // items within the structure.
   render() {
+    if(this.state.nav && this.state.nav != this.props.content) {
+      return(
+        this.renderRoute()
+      );
+    }
     return (
       <Layout className="basicLayout">
         <Sider
@@ -57,7 +105,7 @@ class BasicLayout extends Component {
           width={this.state.broken ? "100%" : "20%"}
           onBreakpoint={this.onBreakpoint}
         >
-          <div className={this.state.collapsed ? "hidden" : "pageTitle"}>
+          <div onClick={this.homeNav} className={this.state.collapsed ? "hidden" : "pageTitle"}>
             <h1 className="title">Main Course</h1>
           </div>
           <div className="sideButtons">
@@ -78,6 +126,9 @@ class BasicLayout extends Component {
                 Log Out
              </Button>
             </Popconfirm>
+            <Button className={this.state.collapsed ? "hidden" : "clearAll"} onClick={this.aboutNav} type="primary">
+                About Us
+             </Button>
           </div>
         </Sider>
         <Layout className={this.state.collapsed ? "main main-grow" : "main"}>
@@ -87,12 +138,7 @@ class BasicLayout extends Component {
             </h2>
           </Header>
           <Content className="mainContent" >
-            <Scheduler
-              currentDate={this.props.currentDate}
-              setDate={this.props.setDate}
-              schedule={this.props.schedule}
-              updateSchedule={this.props.updateSchedule}
-            />
+            {this.renderContent()}
           </Content>
         </Layout>
       </Layout>
