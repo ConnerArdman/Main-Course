@@ -1,3 +1,10 @@
+/*
+    Hari Kaushik, Sai Ranganathan, Conner Ardman, Ian Wohler 
+    This is the recipe component which holds the information for every single 
+    recipe that is generated from the API. It holds all of the informaiton in a 
+    panel and has info about the nutritiion, as well as the ingredients used in the 
+    recipe, and a picture to go with it. 
+*/
 import React, { Component } from 'react';
 import { NutritionLabel } from './NutritionLabel';
 import { Panel, Grid, Row, Col } from 'react-bootstrap';
@@ -12,6 +19,7 @@ export class Recipe extends Component {
       };
    }
 
+   // sets state of loaded to be true 
    componentDidMount() {
       setTimeout(() => {
          this.setState({loaded: true});

@@ -1,3 +1,9 @@
+/*
+    Hari Kaushik, Sai Ranganathan, Conner Ardman, Ian Wohler 
+    This is the slider group component which renders the slider 
+    component and passes in the necessary props to it while returning back 
+    the slider used in the app. 
+*/
 import React, { Component } from 'react';
 import { Slider } from './Slider';
 
@@ -46,6 +52,7 @@ export class SliderGroup extends Component {
       );
    }
 
+   // set state to collapsed and toggle 
    collapse() {
       this.setState(prevState => {
          return {

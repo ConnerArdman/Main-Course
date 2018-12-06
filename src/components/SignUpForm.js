@@ -1,3 +1,9 @@
+/*
+    Hari Kaushik, Sai Ranganathan, Conner Ardman, Ian Wohler 
+    This is the signup form page which uses firebase to register the users by 
+    their emails and passwords with Main Course and keeps their data in 
+    one place. 
+*/
 import React, { Component } from 'react'; //import React Component
 
 export class SignUpForm extends Component {
