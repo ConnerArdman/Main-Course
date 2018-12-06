@@ -5,7 +5,7 @@
 */
 
 import React, { Component } from 'react';
-import { Calendar, Button, Modal } from 'antd';
+import { Calendar, Button, Modal, Popover } from 'antd';
 import MealList from './MealList';
 import { Link } from 'react-router-dom';
 import 'whatwg-fetch';
@@ -73,18 +73,20 @@ class Scheduler extends Component {
     // render the data in the cell
     dateCellRender = date => {
         let listData = this.getCellData(date);
-        return (
-            <ul className="events">
-                {
-                listData.map(item => (
-                    <li key={item.content}>
-                        <span className={`event-${item.type}`}>●</span>
-                        {item.content}
-                    </li>
-                ))
-                }
-            </ul>
-        );
+        if(!this.props.broken){
+            return (
+                <ul className="events">
+                    {
+                    listData.map(item => (
+                        <li key={item.content}>
+                            <span className={`event-${item.type}`}>●</span>
+                            {item.content}
+                        </li>
+                    ))
+                    }
+                </ul>
+            );
+        }
     }
 
     // remove a meal from the schedule
