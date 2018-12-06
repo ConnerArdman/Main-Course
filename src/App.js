@@ -27,6 +27,7 @@ class App extends Component {
       };
    }
 
+   //component mounting function used to set the state of the user for getting info from firebase. 
    componentDidMount() {
       this.authUnRegFunc = firebase.auth().onAuthStateChanged(user => {
          this.setState({loading: false});
@@ -41,7 +42,7 @@ class App extends Component {
       this.authUnRegFunc();
    }
 
-   // add a meal on to the schduler with all the appropriate data from the fetched api
+   // add a meal on to the schduler with all the appropriate data from the fetched api.
    addMeal = (meals) => {
       let list = [];
       if(this.state.schedule[this.state.currentDate.format("MMDDYY")]){
@@ -53,6 +54,7 @@ class App extends Component {
       this.updateSchedule(list);
    }
 
+   // update schedule from local storage. 
    updateSchedule = list => {
       this.setState(prevState => ({
          schedule: {
@@ -63,6 +65,7 @@ class App extends Component {
       window.localStorage.setItem('schedule', JSON.stringify(this.state.schedule));
    }
 
+   // using the local storage to get a JSON that is then parsed to set the state of the schedule object 
    setScheduleFromCache = () => {
       if(window.localStorage.getItem('schedule') !== null) {
          let retrieved = JSON.parse(window.localStorage.getItem('schedule'));
@@ -77,6 +80,7 @@ class App extends Component {
       );
    }
 
+   // takes care of the sign up page for the using the email and password for the 
    handleSignUp = (email, password) => {
       this.setState({errorMessage: null});
       if (!email && !password) {
@@ -90,6 +94,7 @@ class App extends Component {
       }
    }
 
+   // takes care of the sign in and posts to the firebase 
    handleSignIn = (email, password) => {
       this.setState({errorMessage: null});
       firebase.auth().signInWithEmailAndPassword(email, password).then(user => {
@@ -109,7 +114,7 @@ class App extends Component {
       this.setState({errorMessage: msg.message});
    }
 
-
+   // render the home page
    renderHome = routerProps => {
       return(
          <BasicLayout
@@ -124,6 +129,7 @@ class App extends Component {
       );
    }
 
+   // or render the about page 
    renderAbout = routerProps => {
       return(
          <BasicLayout
@@ -138,6 +144,7 @@ class App extends Component {
       );
    }
 
+   // or render the recipe generator page 
    renderGenerator = routerProps => {
       return(
          <RecipeGenerator
