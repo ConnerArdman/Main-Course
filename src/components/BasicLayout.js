@@ -15,7 +15,7 @@ import 'antd/dist/antd.css';
 import '../bootstrap.css';
 import '../App.css';
 import moment from 'moment';
-import { Redirect } from 'react-router-dom'; 
+import { Redirect } from 'react-router-dom';
 const { Sider, Header, Content } = Layout;
 
 class BasicLayout extends Component {
@@ -122,14 +122,20 @@ class BasicLayout extends Component {
             </Popconfirm>
             <div>
             </div>
-            <Popconfirm placement='right' title="Are you sure you want to log out?" onConfirm={this.props.logOut} okText="Yes" cancelText="No">
-             <Button className={this.state.collapsed ? "hidden" : "clearAll"} type="primary">
-                Log Out
+            <Button className={this.state.collapsed ? "hidden" : "clearAll"} onClick={() => {
+                  if (this.props.location.pathname === '/about') {
+                     this.homeNav();
+                  } else {
+                     this.aboutNav();
+                  }
+               }} type="primary">
+               {this.props.location.pathname === '/about' ? 'Calendar' : 'About Us'}
              </Button>
-            </Popconfirm>
-            <Button className={this.state.collapsed ? "hidden" : "clearAll"} onClick={this.aboutNav} type="primary">
-                About Us
-             </Button>
+             <Popconfirm placement='right' title="Are you sure you want to log out?" onConfirm={this.props.logOut} okText="Yes" cancelText="No">
+                <Button className={this.state.collapsed ? "hidden" : "clearAll"} type="primary">
+                   Log Out
+                </Button>
+             </Popconfirm>
           </div>
         </Sider>
         <Layout className={this.state.collapsed ? "main main-grow" : "main"}>

@@ -46,7 +46,6 @@ export class RecipeGenerator extends Component {
       window.removeEventListener('resize', this.updateWindowDimensions.bind(this));
    }
 
-
    /**
     * updateWindowDimensions - Viewport width code adapted from here:
     * https://stackoverflow.com/questions/36862334/get-viewport-window-height-in-reactjs
@@ -158,13 +157,7 @@ export class RecipeGenerator extends Component {
             } return true;
          });
       }
-      if (hits.length === 0) {
-         //TODO
-         // getEl('plan-container').innerHTML =
-         //    'Sorry no matches found. Please try removing some filters.';
-      } else {
-         this.showRecipes(hits, numMeals);
-      }
+      this.showRecipes(hits, numMeals);
    }
 
    showRecipes(hits, numMeals) {
