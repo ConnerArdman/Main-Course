@@ -4,7 +4,7 @@ export class Slider extends Component {
    constructor(props) {
       super(props);
       this.state = {
-         collapsed: false
+         collapsed: this.props.isGroup !== true
       };
    }
 

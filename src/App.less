@@ -29,7 +29,7 @@
 @slider-color-light: #2D7DB3;
 @slider-color-dark: #2D7DB3;
 
-.ant-layout-sider, .ant-layout-header, .ant-layout-sider-trigger {
+.ant-layout-sider, .ant-layout-header, .ant-layout-sider-trigger, #filters {
    background-color: @primary-background-color;
 }
 
@@ -414,6 +414,10 @@ input[type=checkBox] {
 
 #recipes {
    text-align: center;
+
+   img {
+      max-width: 100%;
+   }
 }
 
 #about-page {
@@ -590,5 +594,21 @@ input[type=range] {
       display: flex;
       align-items: center;
       flex-direction: column;
+   }
+
+   .mainContent {
+      margin: 0;
+   }
+
+   .chart {
+      margin: auto;
+   }
+
+   .ant-layout-header {
+      text-align: center;
+   }
+
+   #fullbg {
+      min-height: 100vh;
    }
 }

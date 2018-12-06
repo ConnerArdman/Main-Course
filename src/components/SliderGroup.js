@@ -5,7 +5,7 @@ export class SliderGroup extends Component {
    constructor(props) {
       super(props);
       this.state = {
-         collapsed: false
+         collapsed: true
       };
    }
 
@@ -37,6 +37,7 @@ export class SliderGroup extends Component {
                         aria={aria}
                         value={value}
                         inputChange={inputChange}
+                        isGroup={true}
                         />
                   );
                })}

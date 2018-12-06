@@ -32,12 +32,30 @@ export class RecipeGenerator extends Component {
          extraRecipes: [],
          loading: false,
          hits: [], // A hit is the term for a recipe in the API
-         saved: false
+         saved: false,
+         width: 0
       };
    }
 
-   testHits = () => {
-      console.log(this.state.hits);
+   componentDidMount() {
+      this.updateWindowDimensions();
+      window.addEventListener('resize', this.updateWindowDimensions.bind(this));
+   }
+
+   componentWillUnmount() {
+      window.removeEventListener('resize', this.updateWindowDimensions.bind(this));
+   }
+
+
+   /**
+    * updateWindowDimensions - Viewport width code adapted from here:
+    * https://stackoverflow.com/questions/36862334/get-viewport-window-height-in-reactjs
+    */
+   updateWindowDimensions() {
+      this.setState({
+         width: window.innerWidth,
+         height: window.innerHeight
+      });
    }
 
    handleSave = () => {
@@ -50,33 +68,51 @@ export class RecipeGenerator extends Component {
    }
 
    render() {
-      const {hits, loading} = this.state;
+      const {hits, loading, width} = this.state;
       const cols = "col col2" + (loading ? " loading" : "");
       if(this.state.saved){
          return(
             <Redirect to="/"/>
          );
       }
+
       return (
-         <Layout className="basicLayout">
-           <Sider
-             breakpoint='lg'
-             className="sider"
-             width="20%"
-           >
-               <Filters fetchQueries={this.fetchQueries.bind(this)} saveRecipe={this.handleSave}/>
-           </Sider>
-           <Layout className={this.state.collapsed ? "main main-grow" : "main"}>
-             <Header className="header">
-               <h2 className="currentDay">
-                 {this.props.currentDate.format("MMMM Do, YYYY")}
-               </h2>
-             </Header>
-             <Content className="mainContent" >
-                <RecipeList hits={hits} deleteRecipe={this.deleteRecipe.bind(this)} loading={loading}/>
-             </Content>
-           </Layout>
-         </Layout>
+         <div>
+         {
+            width > 992 ?
+            <Layout className="basicLayout">
+              <Sider
+                breakpoint='lg'
+                className="sider"
+                width="20%"
+              >
+                  <Filters fetchQueries={this.fetchQueries.bind(this)} saveRecipe={this.handleSave}/>
+              </Sider>
+              <Layout className={this.state.collapsed ? "main main-grow" : "main"}>
+                <Header className="header">
+                  <h2 className="currentDay">
+                    {this.props.currentDate.format("MMMM Do, YYYY")}
+                  </h2>
+                </Header>
+                <Content className="mainContent" >
+                   <RecipeList hits={hits} deleteRecipe={this.deleteRecipe.bind(this)} loading={loading}/>
+                </Content>
+              </Layout>
+            </Layout>
+            :
+            <Layout className="basicLayout" id="fullbg">
+                <Header className="header">
+                  <h2 className="currentDay">
+                    {this.props.currentDate.format("MMMM Do, YYYY")}
+                  </h2>
+                </Header>
+                <Content className="mainContent" >
+                   <Filters fetchQueries={this.fetchQueries.bind(this)} saveRecipe={this.handleSave}/>
+                   <RecipeList hits={hits} deleteRecipe={this.deleteRecipe.bind(this)} loading={loading}/>
+                </Content>
+            </Layout>
+         }
+      </div>
       );
    }
 
@@ -137,7 +173,6 @@ export class RecipeGenerator extends Component {
          hits: hits.slice(0, numMeals),
          loading: false
       });
-      this.testHits();
    }
 
    deleteRecipe(index) {
