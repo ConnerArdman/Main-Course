@@ -1,3 +1,8 @@
+/*
+    Hari Kaushik, Sai Ranganathan, Conner Ardman, Ian Wohler 
+    This is the about page which is rendered with a new route when the button is clicked on the 
+    slider bar. This pages talks about the application itself and what it does. 
+*/
 import React, { Component } from 'react';
 
 class About extends Component {

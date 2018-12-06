@@ -1,3 +1,9 @@
+/*
+    Hari Kaushik, Sai Ranganathan, Conner Ardman, Ian Wohler 
+    This is the App component which is later rendered onto the dom in index. This component 
+    contains all of the client side routing and takes care of the users for the firebase. 
+    It also helper functions to set up the basic layout of the page. 
+*/
 import React, { Component } from 'react';
 import { SignUpForm } from './components/SignUpForm';
 import BasicLayout from './components/BasicLayout';
@@ -102,6 +108,7 @@ class App extends Component {
    error(msg) {
       this.setState({errorMessage: msg.message});
    }
+
 
    renderHome = routerProps => {
       return(
