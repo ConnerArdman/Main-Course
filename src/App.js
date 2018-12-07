@@ -35,11 +35,26 @@ class App extends Component {
             this.setState({user});
          }
       });
-      this.setScheduleFromCache();
    }
 
    componentWillUnmount() {
       this.authUnRegFunc();
+   }
+
+   getSchedule = (update) => {
+      if(update){
+         this.setState({schedule: update});
+      }
+   }
+
+   postSchedule = () => {
+      let user = this.state.user;
+      console.log(user.uid);
+      let ref = firebase.database().ref('schedules/' + user.uid);
+      ref.update( {schedule: this.state.schedule} )
+      .catch(function(error) {
+         console.log('Synchronization failed');
+      });
    }
 
    // add a meal on to the schduler with all the appropriate data from the fetched api.
@@ -61,8 +76,7 @@ class App extends Component {
             ...prevState.schedule,
             [this.state.currentDate.format("MMDDYY")]: list
          }
-      }));
-      window.localStorage.setItem('schedule', JSON.stringify(this.state.schedule));
+      }), () => this.postSchedule());
    }
 
    // using the local storage to get a JSON that is then parsed to set the state of the schedule object 
@@ -124,6 +138,8 @@ class App extends Component {
             schedule={this.state.schedule}
             updateSchedule={this.updateSchedule}
             logOut={this.handleSignOut}
+            user={this.state.user}
+            getSchedule={this.getSchedule}
             content="main"
          />
       );
@@ -139,6 +155,8 @@ class App extends Component {
             schedule={this.state.schedule}
             updateSchedule={this.updateSchedule}
             logOut={this.handleSignOut}
+            user={this.state.user}
+            getSchedule={this.getSchedule}
             content="about"
          />
       );

@@ -22,7 +22,7 @@ class MealList extends Component {
                     if(!item.deleted)
                         return(
                             <Meal
-                                key={item.mealName}
+                                key={item.label}
                                 meal={item}
                                 deleteMeal={this.props.deleteMeal}
                                 openMeal={this.props.openMeal}

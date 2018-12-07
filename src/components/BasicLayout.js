@@ -15,6 +15,7 @@ import 'antd/dist/antd.css';
 import '../bootstrap.css';
 import '../App.css';
 import moment from 'moment';
+import firebase from 'firebase/app';
 import { Redirect } from 'react-router-dom';
 const { Sider, Header, Content } = Layout;
 
@@ -28,16 +29,22 @@ class BasicLayout extends Component {
     };
   }
 
+  componentDidMount() {
+    this.ref = firebase.database().ref('schedules/' + this.props.user.uid + '/schedule');
+    this.ref.on('value', snapshot => {
+      this.props.getSchedule(snapshot.val());
+    });
+  }
+
   // sets the state of the collapsed variable to having the attribute of
   // being collapsed down.
   onCollapse = (collapsed) => {
     this.setState({ collapsed });
   }
 
-  // clears the local stoarage and then reloads it when the cache needs to be emptied.
+  // clears the local storage and then reloads it when the cache needs to be emptied.
   emptyCache = () => {
-    window.localStorage.clear();
-    window.location.reload();
+    console.log('click');
   }
 
   onBreakpoint = (broken) => {
