@@ -29,6 +29,8 @@ class App extends Component {
 
    //component mounting function used to set the state of the user for getting info from firebase. 
    componentDidMount() {
+
+      // this function determines how the app should set its state in repsonse to an update
       let renderSchedule = (databaseSchedule) => {
             if (this.state.user && databaseSchedule.child(this.state.user.uid).val()){ 
                   this.setState({schedule:databaseSchedule.child(this.state.user.uid).val()});
@@ -47,7 +49,7 @@ class App extends Component {
             firebase.database().ref('schedules').once('value', renderSchedule);
       });
 
-      // create a listener for cahnges to that user's schedule
+      // create a listener for changes to that user's schedule
       firebase.database().ref('schedules')
             .on('value', renderSchedule);
    }
@@ -95,11 +97,9 @@ class App extends Component {
       ref.remove();
    }
 
-   // sets the current date and logs it out in the console.
-   setCurrentDate = date => {
-      this.setState({ currentDate: date }, () =>
-         console.log(this.state.currentDate)
-      );
+   // sets the current date
+   setCurrentDate = (date) => {
+      this.setState({ currentDate: date });
    }
 
    // takes care of the sign up page for the using the email and password for the 
@@ -144,7 +144,6 @@ class App extends Component {
             currentDate={this.state.currentDate}
             setDate={this.setCurrentDate}
             schedule={this.state.schedule}
-            updateSchedule={this.updateSchedule}
             clearSchedule={this.clearSchedule}
             logOut={this.handleSignOut}
             user={this.state.user}
@@ -160,7 +159,7 @@ class App extends Component {
             {...routerProps}
             currentDate={this.state.currentDate}
             setDate={this.setCurrentDate}
-            updateSchedule={this.updateSchedule}
+            clearSchedule={this.clearSchedule}
             logOut={this.handleSignOut}
             user={this.state.user}
             content="about"
