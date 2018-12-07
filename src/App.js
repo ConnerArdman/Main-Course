@@ -29,62 +29,70 @@ class App extends Component {
 
    //component mounting function used to set the state of the user for getting info from firebase. 
    componentDidMount() {
+      let renderSchedule = (databaseSchedule) => {
+            if (this.state.user && databaseSchedule.child(this.state.user.uid).val()){ 
+                  this.setState({schedule:databaseSchedule.child(this.state.user.uid).val()});
+            } else {
+                  this.setState({schedule:{}}); // for users with no recipes saved
+            }
+      }
+
       this.authUnRegFunc = firebase.auth().onAuthStateChanged(user => {
-         this.setState({loading: false});
-         if (user) {
-            this.setState({user});
-         }
+            this.setState({loading: false, schedule:{}});
+            if (user) {
+                  this.setState({user});
+            }
+
+            // render the user's schedule on initial login
+            firebase.database().ref('schedules').once('value', renderSchedule);
       });
+
+      // create a listener for cahnges to that user's schedule
+      firebase.database().ref('schedules')
+            .on('value', renderSchedule);
    }
 
    componentWillUnmount() {
       this.authUnRegFunc();
    }
 
-   getSchedule = (update) => {
-      if(update){
-         this.setState({schedule: update});
-      }
-   }
+   // adds a meal from the schduler with all the appropriate data from the fetched api.
+   addMeal = (meals) => {
 
-   postSchedule = () => {
-      let user = this.state.user;
-      console.log(user.uid);
-      let ref = firebase.database().ref('schedules/' + user.uid);
-      ref.update( {schedule: this.state.schedule} )
+      // this is a SUPER annoying bug fix, keys that have . in them break firebase, so we recursively remove them
+      let validateObjectForFirebase = (curr) => {
+            if((typeof curr === "object") && (curr !== null)){
+                  console.log(curr);
+                  Object.keys(curr).forEach((key) => {
+                        if(key.includes('.')){
+                              delete curr[key]; // remove that key (this is maybe harmful?)
+                        } else {
+                              validateObjectForFirebase(curr[key]);
+                        }
+                  })
+            }
+      }
+
+      validateObjectForFirebase(meals); // lets validate our new (single day) meal plan for firebase
+
+      let currDate = this.state.currentDate.format("MMDDYY")
+
+      // then post this new schedule to the firebase
+      let ref = firebase.database().ref('schedules').child(this.state.user.uid);
+
+      let updates = {};
+      updates[currDate] = meals; // we need to do this so we can update different dates
+
+      ref.update(updates)
       .catch(function(error) {
          console.log('Synchronization failed');
       });
    }
 
-   // add a meal on to the schduler with all the appropriate data from the fetched api.
-   addMeal = (meals) => {
-      let list = [];
-      if(this.state.schedule[this.state.currentDate.format("MMDDYY")]){
-            list = this.state.schedule[this.state.currentDate.format("MMDDYY")];
-      }
-      meals.map(meal => {
-         list.push(meal);
-      });
-      this.updateSchedule(list);
-   }
-
-   // update schedule from local storage. 
-   updateSchedule = list => {
-      this.setState(prevState => ({
-         schedule: {
-            ...prevState.schedule,
-            [this.state.currentDate.format("MMDDYY")]: list
-         }
-      }), () => this.postSchedule());
-   }
-
-   // using the local storage to get a JSON that is then parsed to set the state of the schedule object 
-   setScheduleFromCache = () => {
-      if(window.localStorage.getItem('schedule') !== null) {
-         let retrieved = JSON.parse(window.localStorage.getItem('schedule'));
-         this.setState({schedule: retrieved});
-      }
+   // this function deletes ALL recipes a user has saved
+   clearSchedule = () => {
+      let ref = firebase.database().ref('schedules').child(this.state.user.uid);
+      ref.remove();
    }
 
    // sets the current date and logs it out in the console.
@@ -137,9 +145,9 @@ class App extends Component {
             setDate={this.setCurrentDate}
             schedule={this.state.schedule}
             updateSchedule={this.updateSchedule}
+            clearSchedule={this.clearSchedule}
             logOut={this.handleSignOut}
             user={this.state.user}
-            getSchedule={this.getSchedule}
             content="main"
          />
       );
@@ -152,11 +160,9 @@ class App extends Component {
             {...routerProps}
             currentDate={this.state.currentDate}
             setDate={this.setCurrentDate}
-            schedule={this.state.schedule}
             updateSchedule={this.updateSchedule}
             logOut={this.handleSignOut}
             user={this.state.user}
-            getSchedule={this.getSchedule}
             content="about"
          />
       );
@@ -176,6 +182,7 @@ class App extends Component {
    }
 
    render() {
+      console.log(this.state.schedule);
       const {loading, user, errorMessage} = this.state;
       const error = errorMessage != null ? <p className="alert alert-danger">{errorMessage}</p> : null;
 
@@ -189,18 +196,19 @@ class App extends Component {
       } else if (user) {
          return(
             <Switch>
-               <Route path='/' exact render={this.renderHome} />
-               <Route path='/generate' render={this.renderGenerator} />
-               <Route path='/about' component={this.renderAbout} /> 
-               <Redirect to='/' />
+                  <Route path='/' exact render={this.renderHome} />
+                  <Route path='/generate' render={this.renderGenerator} />
+                  <Route path='/about' component={this.renderAbout} /> 
+                  <Redirect to='/' />
             </Switch>
          );
       } else {
-         return (<div className="container">
-            {error}
-            <h1>Sign Up / Sign In</h1>
-            <SignUpForm signUpCallback={this.handleSignUp} signInCallback={this.handleSignIn}/>
-         </div>);
+         return (
+            <div className="container">
+                  {error}
+                  <h1>Sign Up / Sign In</h1>
+                  <SignUpForm signUpCallback={this.handleSignUp} signInCallback={this.handleSignIn}/>
+            </div>);
       }
    }
 }

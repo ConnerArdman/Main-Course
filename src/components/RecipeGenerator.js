@@ -62,6 +62,10 @@ export class RecipeGenerator extends Component {
       this.state.hits.map(hit =>{
          recipes.push(hit.recipe);
       });
+
+      console.log(recipes);
+
+      // bugs start down here
       this.props.saveRecipe(recipes);
       this.setState({saved: true});
    }
@@ -94,7 +98,7 @@ export class RecipeGenerator extends Component {
                   </h2>
                 </Header>
                 <Content className="mainContent" >
-                   <RecipeList hits={hits} deleteRecipe={this.deleteRecipe.bind(this)} loading={loading}/>
+                  <RecipeList hits={hits} deleteRecipe={this.deleteRecipe.bind(this)} loading={loading}/>
                 </Content>
               </Layout>
             </Layout>
