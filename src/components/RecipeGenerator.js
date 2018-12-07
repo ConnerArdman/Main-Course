@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'; //import React Component
+import React, { Component } from 'react'; //import React Component
 import { Filters } from './Filters';
 import { RecipeList } from './RecipeList';
 import { Redirect } from 'react-router-dom';
@@ -58,22 +58,17 @@ export class RecipeGenerator extends Component {
    }
 
    handleSave = () => {
-      let recipes = [];
-      this.state.hits.map(hit =>{
-         recipes.push(hit.recipe);
+      let recipes = this.state.hits.map(hit => {
+         return hit.recipe;
       });
 
-      console.log(recipes);
-
-      // bugs start down here
       this.props.saveRecipe(recipes);
       this.setState({saved: true});
    }
 
    render() {
       const {hits, loading, width} = this.state;
-      const cols = "col col2" + (loading ? " loading" : "");
-      if(this.state.saved){
+      if(this.state.saved) {
          return(
             <Redirect to="/"/>
          );
