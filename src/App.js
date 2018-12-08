@@ -203,7 +203,9 @@ class App extends Component {
          return (
             <div className="container">
                   {error}
-                  <h1>Sign Up / Sign In</h1>
+                  <h1 className="signUpHeader">Welcome to Main Course</h1>
+                  <h2>Sign Up / Sign In</h2>
+
                   <SignUpForm signUpCallback={this.handleSignUp} signInCallback={this.handleSignIn}/>
             </div>);
       }
