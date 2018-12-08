@@ -34,7 +34,6 @@ class Scheduler extends Component {
     setScheduleFromCache = () => {
         if(window.localStorage.getItem('schedule') !== null) {
             let retrieved = JSON.parse(window.localStorage.getItem('schedule'));
-            //console.log(retrieved);
             this.setState({schedule: retrieved});
         }
     }
