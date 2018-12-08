@@ -36,7 +36,7 @@ class About extends Component {
                     wireframe contained a few more filters. Unfortunately, limitations of the API
                     are preventing this currently. There is a great deal of rate limiting happening
                     from the API, preventing the site from gathering all of the information it needs.
-                    Additionally, I wanted to show the actual recipe on the screen, but this is another
+                    Additionally, we wanted to show the actual recipe on the screen, but this is another
                     limitation of the free version of this API.
                 </p>
             </div>
@@ -44,24 +44,23 @@ class About extends Component {
             <div>
                 <h2>About The Development</h2>
                 <p>
-                For this site, I chose to utlize the Less CSS extension, as it allowed
-                me to create simple variables that control the look and feel of the
-                site. Changing any of the variables at the top of the Less file should
-                substantially change the look of the site. Additionally, I built this
-                initial version with a mobile first approach, meaning all of the default
-                styles are for smaller devices. That said, the CSS should scale nicely
-                on a larger screen in a multi-column format.
+                We used LESS CSS extention in order to style the webpages, as it allowed us 
+                to create simple variables that control the look adn the feel of the site. 
+                Changing any of the variables at the top of the Less file should
+                substantially change the look of the site. We built this web application with 
+                a mobile first approach, meaning all  of the default styles are also built for 
+                smaller devices, and it works on all mobile devices. That said, the CSS should 
+                scale nicely on a larger screen in a multi-column format.
                 </p>
                 <p>
-                In addition to the CSS, I wrote some basic JavaScript functions to add
-                to the aesthetic and usability of the page. These functions are listening
-                for the screen size to change, in order to change the logic for expanding
-                and compressing the filters section. Additionally, this JavaScript serves to
-                keep track of the changes made on the sliders and display them to the user.
-                As a note, Chrome's mobile simulator blocks these sliders, but they work
-                perfectly on 
-                <a href="https://caniuse.com/#search=range" target="_blank" rel="noopener noreferrer"> most mobile devices.</a>
-                </p>
+                This web application was built using React JS, with multiple components 
+                that were rendered onto to the page. We had used a Basic Layout component 
+                to place and keep track of all the other components, which was then instantiated 
+                in the App component and displayed on the DOM. We included clien-side routing in
+                this stage of the project in order to keep track of all the different web pages 
+                we had that were part of the entire application, and we utilized firebase servers in 
+                order to include the idea of having users, and would keep track of their data. 
+               </p> 
             </div>
         </div>
       );
