@@ -1,5 +1,5 @@
 /*
-  Hari Kaushik , Sai Ranganathan
+  Hari Kaushik , Sai Ranganathan, Conner Ardman, Ian Wohlers
   This is the basic layout component which contains all the structural formatting for the entire
   app. It imports external libraries such as ant design, bootstrap and moment in order to stye the
   entire structure of the application. It creates and instantiates all the other objects and renders

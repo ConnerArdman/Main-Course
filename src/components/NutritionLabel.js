@@ -1,7 +1,7 @@
 /*
-    Hari Kaushik, Sai Ranganathan, Conner Ardman, Ian Wohler 
+    Hari Kaushik, Sai Ranganathan, Conner Ardman, Ian Wohlers
     This is the nutrition label which is the component that has all the information that belongs
-    on the slider.  
+    on the slider.
 */
 import React, { Component } from 'react';
 import { MACROS } from './RecipeGenerator';

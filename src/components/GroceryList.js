@@ -1,5 +1,5 @@
 /*
-Hari Kaushik, Sai Ranganathan, Conner Ardman, Ian Wohler
+Hari Kaushik, Sai Ranganathan, Conner Ardman, Ian Wohlers
 This is the Grocery List component which is later rendered in the app class. It allows the user to add to a
 shopping cart for the items they need to buy. It allows them to cross out items that they have bought and that
 data updates constantly with local storage.

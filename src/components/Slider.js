@@ -1,7 +1,7 @@
 /*
-    Hari Kaushik, Sai Ranganathan, Conner Ardman, Ian Wohler 
-    This is the slider component which is used as a side bar with options for actions in the entire 
-    app. 
+    Hari Kaushik, Sai Ranganathan, Conner Ardman, Ian Wohlers
+    This is the slider component which is used as a side bar with options for actions in the entire
+    app.
 */
 import React, { Component } from 'react';
 
@@ -49,7 +49,7 @@ export class Slider extends Component {
       );
    }
 
-   // collapse function to take care of closing and opening the side bar 
+   // collapse function to take care of closing and opening the side bar
    collapse() {
       this.setState(prevState => {
          return {
@@ -57,7 +57,7 @@ export class Slider extends Component {
          };
       });
    }
-   
+
    removeDash(id) {
       return id.replace(/-/g, ' ');
    }

@@ -1,8 +1,8 @@
 /*
-    Hari Kaushik, Sai Ranganathan, Conner Ardman, Ian Wohler 
-    This is the shopping list component that goes on the recipe generator, 
-    which compiles all the ingredients needed for the meals generator and adds them all 
-    to a single dropdown panel with all that infomration. 
+    Hari Kaushik, Sai Ranganathan, Conner Ardman, Ian Wohlers
+    This is the shopping list component that goes on the recipe generator,
+    which compiles all the ingredients needed for the meals generator and adds them all
+    to a single dropdown panel with all that infomration.
 */
 import React, { Component } from 'react';
 import {Panel} from 'react-bootstrap';
@@ -51,7 +51,7 @@ export class ShoppingList extends Component {
       );
    }
 
-   // set state to collapse to toggle opening and closing the panel 
+   // set state to collapse to toggle opening and closing the panel
    collapse() {
       this.setState(prevState => {
          return {

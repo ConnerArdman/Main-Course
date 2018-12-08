@@ -1,5 +1,5 @@
 /*
-    Hari Kaushik, Sai Ranganathan
+    Hari Kaushik, Sai Ranganathan, Conner Ardman, Ian Wohlers
     This is the scheduler component which contiains the calendar as well as the information that will be
     added once the user adds a meal onto the component.
 */
@@ -14,7 +14,6 @@ import '../bootstrap.css';
 import '../App.css';
 
 class Scheduler extends Component {
-    // constructor in order to keep track of the schedule
     constructor(props){
         super(props);
         this.state = {
@@ -23,13 +22,6 @@ class Scheduler extends Component {
             openMeal: null
         };
     }
-
-    // get the meal data from the api
-    /*componentDidUpdate() {
-        this.fetchMeal();
-    }*/
-
-    // get the meal and the set schedule from the cache on the window on load
 
     setScheduleFromCache = () => {
         if(window.localStorage.getItem('schedule') !== null) {

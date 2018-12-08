@@ -1,5 +1,5 @@
 /*
-    Hari Kaushik, Sai Ranganathan, Conner Ardman, Ian Wohler
+    Hari Kaushik, Sai Ranganathan, Conner Ardman, Ian Wohlers
     This is the App component which is later rendered onto the dom in index. This component
     contains all of the client side routing and takes care of the users for the firebase.
     It also helper functions to set up the basic layout of the page.

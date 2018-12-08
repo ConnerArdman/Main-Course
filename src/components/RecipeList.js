@@ -1,3 +1,8 @@
+/*
+    Hari Kaushik, Sai Ranganathan, Conner Ardman, Ian Wohlers
+    This component holds all of the Recipes currently displayed in the Recipe Generator.
+*/
+
 import React, { Component } from 'react';
 import { Recipe } from './Recipe';
 import { ShoppingList } from './ShoppingList';

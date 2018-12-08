@@ -1,8 +1,8 @@
 /*
-    Hari Kaushik, Sai Ranganathan, Conner Ardman, Ian Wohler 
+    Hari Kaushik, Sai Ranganathan, Conner Ardman, Ian Wohlers
     This is the slider component which holds all of the filters for the recipe generator. Using this data
-    that the user enters, a query is made to the API which gets back information that is then rendered 
-    in the recipe generator module.  
+    that the user enters, a query is made to the API which gets back information that is then rendered
+    in the recipe generator module.
 */
 import React, { Component } from 'react';
 import { Slider } from './Slider';
@@ -125,7 +125,7 @@ export class Filters extends Component {
       );
    }
 
-   // fetches queries and generates recipes from the API  
+   // fetches queries and generates recipes from the API
    generateRecipes() {
       const {meals, cookTime, carbs, protein, fat, restrictions} = this.state;
       const {fetchQueries} = this.props;
@@ -141,7 +141,7 @@ export class Filters extends Component {
       fetchQueries(filters)
    }
 
-   // change state of the id if the input in sliders are changed 
+   // change state of the id if the input in sliders are changed
    inputChange(event) {
       const {id, value} = event.target;
       this.setState({
@@ -149,7 +149,7 @@ export class Filters extends Component {
       });
    }
 
-   // adds the restrictions of whether the user wants vegan/vegatarian food. 
+   // adds the restrictions of whether the user wants vegan/vegatarian food.
    addRestriction(event) {
       const {value} = event.target;
       this.setState(prevState => {

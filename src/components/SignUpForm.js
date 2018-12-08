@@ -1,10 +1,10 @@
 /*
-    Hari Kaushik, Sai Ranganathan, Conner Ardman, Ian Wohler
+    Hari Kaushik, Sai Ranganathan, Conner Ardman, Ian Wohlers
     This is the signup form page which uses firebase to register the users by
     their emails and passwords with Main Course and keeps their data in
     one place.
 */
-import React, { Component } from 'react'; //import React Component
+import React, { Component } from 'react';
 
 export class SignUpForm extends Component {
   constructor(props){
@@ -16,7 +16,7 @@ export class SignUpForm extends Component {
     };
   }
 
-  //update state for specific field
+  // update state for specific field
   handleChange = (event) => {
     let field = event.target.name; //which input
     let value = event.target.value; //what value
@@ -28,13 +28,13 @@ export class SignUpForm extends Component {
 
   //handle signUp button
   handleSignUp = (event) => {
-    event.preventDefault(); //don't submit
+    event.preventDefault();
     this.props.signUpCallback(this.state.email, this.state.password);
   }
 
   //handle signIn button
   handleSignIn = (event) => {
-    event.preventDefault(); //don't submit
+    event.preventDefault();
     this.props.signInCallback(this.state.email, this.state.password);
   }
 

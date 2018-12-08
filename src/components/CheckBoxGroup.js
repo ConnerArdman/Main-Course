@@ -1,6 +1,6 @@
 /*
-    Hari Kaushik, Sai Ranganathan, Conner Ardman, Ian Wohler 
-    This is the component that holds the checkbox group that is in the sliders of the recipe generator 
+    Hari Kaushik, Sai Ranganathan, Conner Ardman, Ian Wohlers
+    This is the component that holds the checkbox group that is in the sliders of the recipe generator
     which holds the options that asks the user for vegetarian/vegan options.
 */
 import React, { Component } from 'react';

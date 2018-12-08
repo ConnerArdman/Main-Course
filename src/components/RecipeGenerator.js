@@ -1,3 +1,9 @@
+/*
+    Hari Kaushik, Sai Ranganathan, Conner Ardman, Ian Wohlers
+    This is the main component for the recipe generation page. It contains all of
+    the state related to this page and parses new recipes.
+*/
+
 import React, { Component } from 'react'; //import React Component
 import { Filters } from './Filters';
 import { RecipeList } from './RecipeList';

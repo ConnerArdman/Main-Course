@@ -1,7 +1,7 @@
 /*
-    Hari Kaushik, Sai Ranganathan, Conner Ardman, Ian Wohler 
-    This is the index which is instantiates the App object and adds it into the dom under the element 'root. 
-    It also includes all the credential information to access the firebase used in the app. 
+    Hari Kaushik, Sai Ranganathan, Conner Ardman, Ian Wohlers
+    This is the index which is instantiates the App object and adds it into the dom under the element 'root.
+    It also includes all the credential information to access the firebase used in the app.
 */
 import React from 'react';
 import ReactDOM from 'react-dom';
