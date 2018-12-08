@@ -1,8 +1,8 @@
 /*
-    Hari Kaushik, Sai Ranganathan, Conner Ardman, Ian Wohler 
-    This is the App component which is later rendered onto the dom in index. This component 
-    contains all of the client side routing and takes care of the users for the firebase. 
-    It also helper functions to set up the basic layout of the page. 
+    Hari Kaushik, Sai Ranganathan, Conner Ardman, Ian Wohler
+    This is the App component which is later rendered onto the dom in index. This component
+    contains all of the client side routing and takes care of the users for the firebase.
+    It also helper functions to set up the basic layout of the page.
 */
 import React, { Component } from 'react';
 import { SignUpForm } from './components/SignUpForm';
@@ -27,12 +27,12 @@ class App extends Component {
       };
    }
 
-   //component mounting function used to set the state of the user for getting info from firebase. 
+   //component mounting function used to set the state of the user for getting info from firebase.
    componentDidMount() {
 
       // this function determines how the app should set its state in repsonse to an update
       let renderSchedule = (databaseSchedule) => {
-            if (this.state.user && databaseSchedule.child(this.state.user.uid).val()){ 
+            if (this.state.user && databaseSchedule.child(this.state.user.uid).val()){
                   this.setState({schedule:databaseSchedule.child(this.state.user.uid).val()});
             } else {
                   this.setState({schedule:{}}); // for users with no recipes saved
@@ -101,7 +101,7 @@ class App extends Component {
       this.setState({ currentDate: date });
    }
 
-   // takes care of the sign up page for the using the email and password for the 
+   // takes care of the sign up page for the using the email and password for the
    handleSignUp = (email, password) => {
       this.setState({errorMessage: null});
       if (!email && !password) {
@@ -115,7 +115,7 @@ class App extends Component {
       }
    }
 
-   // takes care of the sign in and posts to the firebase 
+   // takes care of the sign in and posts to the firebase
    handleSignIn = (email, password) => {
       this.setState({errorMessage: null});
       firebase.auth().signInWithEmailAndPassword(email, password).then(user => {
@@ -151,7 +151,7 @@ class App extends Component {
       );
    }
 
-   // or render the about page 
+   // or render the about page
    renderAbout = routerProps => {
       return(
          <BasicLayout
@@ -166,7 +166,7 @@ class App extends Component {
       );
    }
 
-   // or render the recipe generator page 
+   // or render the recipe generator page
    renderGenerator = routerProps => {
       return(
          <RecipeGenerator
@@ -195,19 +195,20 @@ class App extends Component {
             <Switch>
                   <Route path='/' exact render={this.renderHome} />
                   <Route path='/generate' render={this.renderGenerator} />
-                  <Route path='/about' component={this.renderAbout} /> 
+                  <Route path='/about' component={this.renderAbout} />
                   <Redirect to='/' />
             </Switch>
          );
       } else {
          return (
+            <div>
+            <h1 className="signUpHeader">Welcome to Main Course</h1>
             <div className="container">
-                  {error}
-                  <h1 className="signUpHeader">Welcome to Main Course</h1>
+                     {error}
                   <h2>Sign Up / Sign In</h2>
 
                   <SignUpForm signUpCallback={this.handleSignUp} signInCallback={this.handleSignIn}/>
-            </div>);
+            </div></div>);
       }
    }
 }
