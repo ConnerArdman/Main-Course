@@ -64,7 +64,6 @@ class App extends Component {
       // this is a SUPER annoying bug fix, keys that have . in them break firebase, so we recursively remove them
       let validateObjectForFirebase = (curr) => {
             if((typeof curr === "object") && (curr !== null)){
-                  console.log(curr);
                   Object.keys(curr).forEach((key) => {
                         if(key.includes('.')){
                               delete curr[key]; // remove that key (this is maybe harmful?)
@@ -181,7 +180,6 @@ class App extends Component {
    }
 
    render() {
-      console.log(this.state.schedule);
       const {loading, user, errorMessage} = this.state;
       const error = errorMessage != null ? <p className="alert alert-danger">{errorMessage}</p> : null;
 
