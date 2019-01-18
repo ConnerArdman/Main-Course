@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/stage-0-topic-proposal-ConnerArdman/precache-manifest.ae0cde600a19977e4241d38ba00f77bf.js"
+  "/Main-Course/precache-manifest.bb38b9b0607883c50b5c717acd9ba433.js"
 );
 
 workbox.clientsClaim();
@@ -28,7 +28,7 @@ self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute("/stage-0-topic-proposal-ConnerArdman/index.html", {
+workbox.routing.registerNavigationRoute("/Main-Course/index.html", {
   
   blacklist: [/^\/_/,/\/[^\/]+\.[^\/]+$/],
 });

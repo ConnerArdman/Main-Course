@@ -1,15 +1,15 @@
 {
-  "main.css": "/stage-0-topic-proposal-ConnerArdman/static/css/main.7720db33.chunk.css",
-  "main.js": "/stage-0-topic-proposal-ConnerArdman/static/js/main.10880145.chunk.js",
-  "main.js.map": "/stage-0-topic-proposal-ConnerArdman/static/js/main.10880145.chunk.js.map",
-  "static/css/1.ab52cee4.chunk.css": "/stage-0-topic-proposal-ConnerArdman/static/css/1.ab52cee4.chunk.css",
-  "static/js/1.129bce56.chunk.js": "/stage-0-topic-proposal-ConnerArdman/static/js/1.129bce56.chunk.js",
-  "static/js/1.129bce56.chunk.js.map": "/stage-0-topic-proposal-ConnerArdman/static/js/1.129bce56.chunk.js.map",
-  "runtime~main.js": "/stage-0-topic-proposal-ConnerArdman/static/js/runtime~main.fb81e267.js",
-  "runtime~main.js.map": "/stage-0-topic-proposal-ConnerArdman/static/js/runtime~main.fb81e267.js.map",
-  "static/css/main.7720db33.chunk.css.map": "/stage-0-topic-proposal-ConnerArdman/static/css/main.7720db33.chunk.css.map",
-  "static/css/1.ab52cee4.chunk.css.map": "/stage-0-topic-proposal-ConnerArdman/static/css/1.ab52cee4.chunk.css.map",
-  "index.html": "/stage-0-topic-proposal-ConnerArdman/index.html",
-  "precache-manifest.ae0cde600a19977e4241d38ba00f77bf.js": "/stage-0-topic-proposal-ConnerArdman/precache-manifest.ae0cde600a19977e4241d38ba00f77bf.js",
-  "service-worker.js": "/stage-0-topic-proposal-ConnerArdman/service-worker.js"
+  "main.css": "/Main-Course/static/css/main.5b2eef6a.chunk.css",
+  "main.js": "/Main-Course/static/js/main.b11934fb.chunk.js",
+  "main.js.map": "/Main-Course/static/js/main.b11934fb.chunk.js.map",
+  "static/css/1.8b79246b.chunk.css": "/Main-Course/static/css/1.8b79246b.chunk.css",
+  "static/js/1.b1e3113d.chunk.js": "/Main-Course/static/js/1.b1e3113d.chunk.js",
+  "static/js/1.b1e3113d.chunk.js.map": "/Main-Course/static/js/1.b1e3113d.chunk.js.map",
+  "runtime~main.js": "/Main-Course/static/js/runtime~main.119dfd9a.js",
+  "runtime~main.js.map": "/Main-Course/static/js/runtime~main.119dfd9a.js.map",
+  "static/css/1.8b79246b.chunk.css.map": "/Main-Course/static/css/1.8b79246b.chunk.css.map",
+  "static/css/main.5b2eef6a.chunk.css.map": "/Main-Course/static/css/main.5b2eef6a.chunk.css.map",
+  "index.html": "/Main-Course/index.html",
+  "precache-manifest.bb38b9b0607883c50b5c717acd9ba433.js": "/Main-Course/precache-manifest.bb38b9b0607883c50b5c717acd9ba433.js",
+  "service-worker.js": "/Main-Course/service-worker.js"
 }
